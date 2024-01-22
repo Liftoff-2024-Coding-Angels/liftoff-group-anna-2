@@ -21,20 +21,7 @@ BusinessPhone</strong> </p> <br>
                 <div style="margin-top: 10px;">  
                     
         p><strong>Share us on:</strong></p>
-<p>
-    @*facebook sharing*@
-    <a href="javascript:void(o)" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, " / ")@Request.RawUrl.ToString().Split('/')[1]/BusinessProfile','facebook-share-dialog','toolbar=0,status=0,width=600,height=600');"> <img src="@Url.Content(" ~/Images/face.png ")" id="imgfb" alt="" /></a> 
 
-    @*twitter sharing*@
-    <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, " / ")@Request.RawUrl.ToString().Split('/')[1]/BusinessProfile" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content(" ~/Images/twitt.png ")" id="imgtw" alt="" /></a>
-    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script> 
-
-    @*LinkedIn sharing*@
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, " / ")@Request.RawUrl.ToString().Split('/')[1]/BusinessProfile" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content(" ~/Images/linkdin.png ")" id="imgln"></a>
-    
-    @*GooglePlus sharing*@
-    <a href="https://plus.google.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, " / ")@Request.RawUrl.ToString().Split('/')[1]/BusinessProfile" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content(" ~/Images/google-plus.png ")" id="imggoogle"></a>
-</p>
                    
                 </div>
             </div>

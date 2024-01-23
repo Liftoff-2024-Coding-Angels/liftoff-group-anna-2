@@ -22,6 +22,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
+//this sets the inactivity timeout to 2 days
+builder.Services.ConfigureApplicationCookie(o => {
+    o.ExpireTimeSpan = TimeSpan.FromDays(2);
+    o.SlidingExpiration = true;
+});
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
@@ -55,11 +61,11 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 
-//services.AddAuthentication().AddGoogle(googleOptions =>
-//{
-//    googleOptions.ClientId = configuration["Authentication:Google:498958457494-8linpp6087kujgji51uf8jrvovn5e2p1.apps.googleusercontent.com"];
-//    googleOptions.ClientSecret = configuration["Authentication:Google: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"];
-//});
+services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
 
 var app = builder.Build();
 

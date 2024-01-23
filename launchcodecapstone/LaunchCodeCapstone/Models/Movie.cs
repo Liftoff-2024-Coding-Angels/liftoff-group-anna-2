@@ -11,10 +11,14 @@ public class Movie
 	public List<int> Rating { get; set; }
  
 	
-	public Movie(string title, DateTime date, bool haveWatched,)
+	public Movie(string title, DateTime date, bool haveWatched)
 	{
 		Title = title;
 		Date = date;
 		HaveWatched = haveWatched;
+	}
+
+	public Movie()
+	{
 	}
 }

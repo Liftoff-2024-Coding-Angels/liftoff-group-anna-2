@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -46,6 +49,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+
+//services.AddAuthentication().AddGoogle(googleOptions =>
+//{
+//    googleOptions.ClientId = configuration["Authentication:Google:498958457494-8linpp6087kujgji51uf8jrvovn5e2p1.apps.googleusercontent.com"];
+//    googleOptions.ClientSecret = configuration["Authentication:Google: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"];
+//});
 
 var app = builder.Build();
 

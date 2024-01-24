@@ -21,7 +21,7 @@ namespace LaunchCodeCapstone.Controllers
         }
 
         [HttpPost]
-        [ActionName("AddTag")]
+//        [ActionName("AddTag")]
         public IActionResult AddTag(AddTagRequest addTagRequest)
         {
             //removed to do model binding instead
@@ -32,7 +32,7 @@ namespace LaunchCodeCapstone.Controllers
             //var name = addTagRequest.Name;
             //var displayName = addTagRequest.displayName;
 
-            //mapping AddTagRequest to Tag domain model
+            //mapping AddTagRequest to Tag  model
 
             var tag = new Tag
             {

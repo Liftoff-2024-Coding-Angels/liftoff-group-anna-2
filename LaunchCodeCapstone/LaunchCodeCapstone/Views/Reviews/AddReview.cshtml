@@ -1,1 +1,60 @@
-﻿<h1>this is where you add a review</h1>
+﻿@model LaunchCodeCapstone.Models.ViewModels.AddReviewRequest
+
+<h1>Add a New Tag</h1>
+<div>
+    <form method="post">
+        <div class=" mb-3">
+            <label class="form-label">Heading</label>
+            <input type="text" class="form-control" id="heading" asp-for="Heading" />
+        </div>
+
+        <div class=" mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" asp-for="Title" />
+        </div>
+
+        <div class=" mb-3">
+            <label class="form-label">Content</label>
+            <input type="text" class="form-control" id="content" asp-for="Content" />
+        </div>
+
+        <div class=" mb-3">
+            <label class="form-label">Description</label>
+            <input type="textarea" class="form-control" id="description" asp-for="Description" />
+        </div>
+
+        <div class=" mb-3">
+            <label class="form-label">Featured Upload Url</label>
+            <input type="file" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
+            <input type="submit" value="Upload" />
+        </div>
+
+        <div class=" mb-3">
+            <label class="form-label">Url Handle</label>
+            <input type="url" class="form-control" id="urlHandle" asp-for="UrlHandle" />
+        </div>
+
+        <div class=" mb-3">
+            <label class="form-label">Published Date</label>
+            <input type="datetime-local" class="form-control" id="publishedDate" asp-for="PublishedDate" />
+        </div>
+
+        <div class=" mb-3">
+            <label class="form-label">Author</label>
+            <input type="text" class="form-control" id="Author" asp-for="Author" />
+        </div>
+
+        <div class=" mb-3">
+            <label class="form-label">Visible</label>
+            <input type="checkbox" class="form-control" id="visible" asp-for="Visible" />
+        </div>
+
+        <div class=" mb-3">
+            <button type="submit" class="btn btn-light">Submit</button>
+        </div>
+    </form>
+
+
+</div>
+
+

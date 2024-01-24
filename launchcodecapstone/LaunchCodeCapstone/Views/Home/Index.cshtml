@@ -7,24 +7,17 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 
-<div class="row">  
-    <div>  
-        <div class=" col-md-3 col-sm-3">  
-            <p style="text-align: center;"><strong>BusinessName</strong></p>  
-            <p style="text-align: center;"> <strong>BusinessAddress<br />   
-BusinessPhone</strong> </p> <br>  
-            <div style="text-align: center;"> <strong>Rate This Business</strong><br> <img width="27" height="25" src="/Images/y-star-small.png"> <img width="27" height="25" src="/Images/y-star-small.png"> <img width="27" height="25" src="/Images/y-star-small.png"> <img width="27" height="25" src="/Images/y-star-small.png">  
-                <p><strong>100 Reviews</strong></p>  
-                <p><strong>Business description</strong></p>  
-                <p><strong>BusinessDescription</strong></p>  
-                <div style="margin-top: 10px;">  
-                    
-        p><strong>Share us on:</strong></p>
+<form asp-controller="Movie" asp-action="Index" method="get">
+    <p>
+        <select asp-for="MovieTitle" asp-items="Model.Genres">
+            <option value="">All</option>
+        </select>
 
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-</div>  
+        Title: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>

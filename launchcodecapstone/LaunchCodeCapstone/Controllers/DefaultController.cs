@@ -10,10 +10,7 @@ namespace LaunchCodeCapstone.Controllers
             {
                 return View();
             }
-            public ActionResult BusinessProfile()
-            {
-                return View();
-            }
+           
         }  
            
 }

@@ -1,8 +1,6 @@
 ﻿using LaunchCodeCapstone.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Net.TMDb;
-using RestSharp;
 
 namespace LaunchCodeCapstone.Controllers
 {

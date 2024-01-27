@@ -1,24 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using LaunchCodeCapstone.Models;
 
-public class Movie		
+public class MovieData		
 {
-	public int Id { get; set; }
+	public int MovieId { get; set; }
     public string Title { get; set; }
-    public DateTime Date { get; set; } //personally set date format of MM / DD / YYYY
-    public bool HaveWatched { get; set; }
+	public DateTime	DateCreated { get; set; }
+	public string Director { get; set; }
+	public string LeadActor { get; set; }
 
-	public List<int> Rating { get; set; }
- 
-	
-	public Movie(string title, DateTime date, bool haveWatched)
-	{
-		Title = title;
-		Date = date;
-		HaveWatched = haveWatched;
-	}
-
-	public Movie()
+	public MovieData()
 	{
 	}
 }

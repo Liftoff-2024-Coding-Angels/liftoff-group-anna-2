@@ -10,12 +10,12 @@ using LaunchCodeCapstone.ViewModels;
 
 namespace LaunchCodeCapstone.Controllers
 {
-	public class MovieController : Controller
+	public class MovieEntryController : Controller
 	{
 
 		private MovieDbContext context;
 
-		public MovieController(MovieDbContext dbContext)
+		public MovieEntryController(MovieDbContext dbContext)
 		{
 			context = dbContext;
 		}
@@ -24,7 +24,7 @@ namespace LaunchCodeCapstone.Controllers
 		[HttpGet]
 		public IActionResult Index()
 		{
-			List<Movie> movies = context.Movie?.ToList();
+			List<MovieEntry> movies = context.MovieEntry?.ToList();
 			return View(movies);
 		}
 
@@ -32,24 +32,23 @@ namespace LaunchCodeCapstone.Controllers
 		[Route("/Create")]
 		public IActionResult Create()
 		{
-			AddMovieViewModel addMovieViewModel = new AddMovieViewModel();
+			AddMovieEntryViewModel addMovieEntryViewModel = new AddMovieEntryViewModel();
 			return View();
 
 		}
 
 		[HttpPost]
 		[Route("/Create")]
-		public IActionResult Create(AddMovieViewModel addMovieViewModel)
+		public IActionResult Create(AddMovieEntryViewModel addMovieEntryViewModel)
 		{
 			if (ModelState.IsValid)
 			{
-				Movie aMovie = new Movie
+				MovieEntry aMovie = new MovieEntry
 				{
-					Title = addMovieViewModel.Title,
-					Date = addMovieViewModel.Date,
-					//
-					HaveWatched = addMovieViewModel.HaveWatched,
-				};
+					Title = addMovieEntryViewModel.Title,
+					Date = addMovieEntryViewModel.Date,
+					Rating = addMovieEntryViewModel.Rating
+                };
 
 				context.Movies?.Add(aMovie);
 				context.SaveChanges();
@@ -60,14 +59,21 @@ namespace LaunchCodeCapstone.Controllers
 		}
 
 		[HttpPut]
-		public IActionResult Update(AddMovieViewModel addMovieViewModel)
+		public IActionResult Update(AddMovieEntryViewModel addMovieEntryViewModel)
 		{
 			if(ModelState.IsValid)
 			{
+				if(context.MovieEntryId == )
+				// if
+				// HaveWatched goes from False to True
+				// Update the form
+				// DATE required
+				// RATING ?required?
+
 				//this needs to be set up for the table that has the linking MovieId with the date watched
 				existingDate = context.Movie.Where(e => e.MovieId == movieId)
 
-				if(existingDate != newDate)
+				if(context.Watched.Where(e => e.MovieId) != )
 				{
 					//change the current date to the new date in the view model
 				}
@@ -76,17 +82,24 @@ namespace LaunchCodeCapstone.Controllers
 		}
 
 		[HttpDelete]
-		public IActionResult Delete(int[] movieIDs)
+		public IActionResult Delete(int[] movieEntryIDs)
 		{
-			foreach(int movieId in movieIDs)
+			foreach(int movieEntryId in movieEntryIDs)
 			{
-				Movie aMovie = context.Movie.Find(movieId);
-				context.Movie.Remove(aMovie);
+				MovieData aMovie = context.MovieEntry.Find(movieEntryId);
+				context.MovieEntry.Remove(aMovie);
 		
 			}
 
             context.SaveChanges();
             return View();
+		}
+
+		public IActionResult SetRating(AddMovieEntryViewModel addMovieEntryViewModel)
+		{
+			MovieEntry rating = new AddMovieEntryViewModel;
+
+
 		}
 	}
 }

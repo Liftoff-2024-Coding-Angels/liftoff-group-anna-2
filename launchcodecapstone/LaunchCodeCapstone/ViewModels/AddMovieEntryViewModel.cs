@@ -4,7 +4,7 @@ using LaunchCodeCapstone.Models;
 
 namespace LaunchCodeCapstone.ViewModels
 {
-	public class AddMovieViewModel
+	public class AddMovieEntryViewModel
 	{
 		[Required(ErrorMessage = "A movie title is required.")]
         public string Title { get; set; }
@@ -12,10 +12,10 @@ namespace LaunchCodeCapstone.ViewModels
 		[Required(ErrorMessage = "A date is required.")]
 		public DateTime Date { get; set; }
 
-		[Required(ErrorMessage = "A selection is required.")]
-		public HaveWatched HaveWatched { get; set; }
+        [Required(ErrorMessage = "A rating is required.")]
+		public List<int> Rating { get; set; }
 
-        public AddMovieViewModel()
+        public AddMovieEntryViewModel()
 		{
 		}
 	}

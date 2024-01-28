@@ -8,16 +8,18 @@ namespace LaunchCodeCapstone.Models
 		public string Title { get; set; }
 
 		public DateTime Date { get; set; } //personally set date format of MM / DD / YYYY
-       
-        public List<int> Rating { get; set; }
 
 
-        public MovieEntry(string title, DateTime date, List<int> rating)
+        public ICollection<Rating> Ratings { get; set; }
+
+
+        public MovieEntry(string title, DateTime date)
 		{
 			Title = title;
 			Date = date;
-			Rating = rating;
-		}
+            Ratings = new List<Rating>();
+
+        }
 
 		public MovieEntry()
 		{

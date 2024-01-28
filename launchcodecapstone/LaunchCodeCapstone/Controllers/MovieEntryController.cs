@@ -58,31 +58,40 @@ namespace LaunchCodeCapstone.Controllers
 			return View();
 		}
 
-		[HttpPut]
-		public IActionResult Update(AddMovieEntryViewModel addMovieEntryViewModel)
+		[HttpGet]
+        [Route("/Edit")]
+        public IActionResult Edit(int movieEntryId)
 		{
-			if(ModelState.IsValid)
-			{
-				if(context.MovieEntryId == )
-				// if
-				// HaveWatched goes from False to True
-				// Update the form
-				// DATE required
-				// RATING ?required?
+			MovieEntry aMovie = context.MovieEntry.Find(movieEntryId);
+			return View(aMovie);
 
-				//this needs to be set up for the table that has the linking MovieId with the date watched
-				existingDate = context.Movie.Where(e => e.MovieId == movieId)
-
-				if(context.Watched.Where(e => e.MovieId) != )
-				{
-					//change the current date to the new date in the view model
-				}
-			}
-			return View(Index);
 		}
 
-		[HttpDelete]
-		public IActionResult Delete(int[] movieEntryIDs)
+		[HttpPost]
+        [Route("/Edit")]
+        public IActionResult Edit(MovieEntry aMovieEntry)
+		{
+			if (ModelState.IsValid)
+			{
+				context.Entry(aMovieEntry).State = EntityState.Modified;
+				context.SaveChanges();
+				return Redirect("Index");
+			}
+
+			return View(aMovieEntry);
+		}
+
+		[HttpGet]
+        [Route("/Delete")]
+        public IActionResult Delete(int movieEntryId)
+		{
+            MovieEntry aMovie = context.MovieEntry.Find(movieEntryId);
+            return View(aMovie);
+        }
+
+		[HttpPost]
+        [Route("/Delete")]
+        public IActionResult Delete(int[] movieEntryIDs)
 		{
 			foreach(int movieEntryId in movieEntryIDs)
 			{

@@ -18,7 +18,7 @@ namespace LaunchCodeCapstone.Data
         { 
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+      /*  protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
@@ -26,7 +26,7 @@ namespace LaunchCodeCapstone.Data
             builder.Entity<Movie>()
                 .HasMany(a => a.User)
                 .WithMany(b => b.Rating)
-        }
+        }*/
 
     }
 }

@@ -8,7 +8,7 @@
 
         public Users User { get; set; }
 
-        //public Ratings Rating {  get; set; }
+     
         
     }
 }

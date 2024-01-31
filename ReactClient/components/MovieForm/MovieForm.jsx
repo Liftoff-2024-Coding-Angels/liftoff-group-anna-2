@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import AddStarRating from "../AddStarRating/AddStarRating";
 
+//TO DO:
+// CONNECT DATABASE
+
 const MovieForm = () => {
   const [formData, setFromData] = useState({
     tite: "",

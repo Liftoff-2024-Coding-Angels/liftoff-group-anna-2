@@ -1,3 +1,4 @@
+using DM.MovieApi;
 using LaunchCodeCapstone.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+string bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZmFmYmI2NzU5NTJmNjZkODBlMWE1Y2MyM2FmN2VlMyIsInN1YiI6IjY1YjFiYzczNmVlY2VlMDE2MjMzZjRmYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vEJUScrm282EjN3PhWzDB2tvlUFPHHgPDIhlHU2ym1o";
+
+MovieDbFactory.RegisterSettings(bearerToken);
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

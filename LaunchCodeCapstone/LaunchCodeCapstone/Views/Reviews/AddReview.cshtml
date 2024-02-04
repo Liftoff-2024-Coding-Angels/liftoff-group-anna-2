@@ -1,7 +1,10 @@
 ﻿@model LaunchCodeCapstone.Models.ViewModels.AddReviewRequest
 
-<h1>Add a New Tag</h1>
 <div>
+    <h1>Add a New Review</h1>
+</div>
+
+<div class="container py-5">
     <form method="post">
         <div class=" mb-3">
             <label class="form-label">Heading</label>
@@ -14,43 +17,47 @@
         </div>
 
         <div class=" mb-3">
-            <label class="form-label">Content</label>
-            <input type="text" class="form-control" id="content" asp-for="Content" />
+            <label class="form-label">Title</label>
+            <textarea class="form-control" id="content" asp-for="Content">Content</textarea>
         </div>
 
-        <div class=" mb-3">
+        <div class="mb-3">
             <label class="form-label">Description</label>
-            <input type="textarea" class="form-control" id="description" asp-for="Description" />
+            <input type="text" class="form-control" id="description" asp-for="Description" />
         </div>
 
         <div class=" mb-3">
-            <label class="form-label">Featured Upload Url</label>
-            <input type="file" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
-            <input type="submit" value="Upload" />
+            <label class="form-label">Featured Image Upload Url</label>
+            <input type="text" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
+
+@*            <input type="file" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
+            <input type="submit" value="Upload" />*@
         </div>
 
         <div class=" mb-3">
             <label class="form-label">Url Handle</label>
-            <input type="url" class="form-control" id="urlHandle" asp-for="UrlHandle" />
-        </div>
+            <input type="text" class="form-control" id="urlHandle" asp-for="UrlHandle" />
+@*            <input type="url" class="form-control" id="urlHandle" asp-for="UrlHandle" />
+*@        </div>
 
         <div class=" mb-3">
             <label class="form-label">Published Date</label>
-            <input type="datetime-local" class="form-control" id="publishedDate" asp-for="PublishedDate" />
-        </div>
+            <input type="date" class="form-control" id="publishedDate" asp-for="PublishedDate" />
+@*            <input type="datetime-local" class="form-control" id="publishedDate" asp-for="PublishedDate" />
+*@        </div>
 
         <div class=" mb-3">
             <label class="form-label">Author</label>
             <input type="text" class="form-control" id="Author" asp-for="Author" />
         </div>
 
-        <div class=" mb-3">
-            <label class="form-label">Visible</label>
-            <input type="checkbox" class="form-control" id="visible" asp-for="Visible" />
+        <div class="mb-3">
+            <label class="form-check-label">Visible?</label>
+            <input type="checkbox" class="form-check-input" id="visible" asp-for="Visible" />
         </div>
 
         <div class=" mb-3">
-            <button type="submit" class="btn btn-light">Submit</button>
+            <button type="submit" class="btn btn-light">Save</button>
         </div>
     </form>
 

@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Movie
+
+@{
+    <h3>Add to your List here!</h3>
+    
+
+    <form asp-controller="Movie" asp-action="SearchBar" method="get">
+    <div class="form-group">
+        <label> Title</label>
+        <input name="Title"class="form-control" />
+        <input type="submit" value="Add movie to List" />
+    </div>
+    </form>
+
+    @*<form method="post" action="simpleform.asp">
+        First Name: <input type="text" name="fname"><br>
+        Last Name: <input type="text" name="lname"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    *@
+}

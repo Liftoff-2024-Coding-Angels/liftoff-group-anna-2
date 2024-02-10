@@ -12,6 +12,8 @@ namespace LaunchCodeCapstone.ViewModels
 		[Required(ErrorMessage = "A date is required.")]
 		public DateTime Date { get; set; }
 
+		public int NumRating { get; set; }	
+
   //      [Required(ErrorMessage = "A rating is required.")]
 		//public List<int> Rating { get; set; }
 

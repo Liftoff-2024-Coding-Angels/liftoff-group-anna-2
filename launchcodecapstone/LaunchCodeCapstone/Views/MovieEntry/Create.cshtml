@@ -14,7 +14,7 @@
 
     <div class="form-group">
         <label asp-for="Date">Date</label>
-        <input class="form-control" type="date" asp-for="Date" asp-format="{0:yyyy-MM-dd}" />
+        <input class="form-control" min="2023-01-01" value="2023-01-01" type="date" asp-for="Date" asp-format="{0:yyyy-MM-dd}" />
         <span asp-validation-for="Date" class="text-danger"></span>
     </div>
 
@@ -22,12 +22,13 @@
 
     <div class="form-group">
         <label asp-for="NumRating">Rating</label>
-        <input class="form-control" type="date" asp-for="NumRating" />
+        <input class="form-control" max="5" asp-for="NumRating" />
         <span asp-validation-for="NumRating" class="text-danger"></span>
     </div>
 
     <br />
 
+    @*<button type="submit" value="Add Movie" />*@
     <input type="submit" value="Add Movie" />
 </form>
 

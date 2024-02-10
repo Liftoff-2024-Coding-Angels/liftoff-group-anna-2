@@ -1,0 +1,18 @@
+@model List<LaunchCodeCapstone.Models.MovieEntry>
+
+<h1>Delete Movie</h1>
+
+<form method="post">
+    @foreach (var aMovie in Model)
+    {
+        <div class="form-group">
+            <label>
+                <span>@aMovie.Title</span>
+                <input type="checkbox" name="MovieEntryIds" value="MovieEntryId" class="form-control">
+            </label>
+        </div>
+    }
+
+    <input type="submit" value="Delete Selected Movies" class="btn btn-danger">
+
+</form>

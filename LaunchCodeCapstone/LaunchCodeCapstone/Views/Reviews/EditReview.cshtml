@@ -1,11 +1,19 @@
-﻿@model LaunchCodeCapstone.Models.ViewModels.AddReviewRequest
+﻿@model LaunchCodeCapstone.Models.ViewModels.EditReviewRequest
 
 <div>
-    <h1>Add a New Review</h1>
+    <h1>Edit a Review</h1>
 </div>
 
 <div class="container py-5">
-    <form method="post">
+    @if (Model != null)
+    {
+                    <form method="post">
+
+        <div class=" mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" id="id" asp-for="Id" readonly />
+        </div>
+
         <div class=" mb-3">
             <label class="form-label">Heading</label>
             <input type="text" class="form-control" id="heading" asp-for="Heading" />
@@ -30,21 +38,23 @@
             <label class="form-label">Featured Image Upload Url</label>
             <input type="text" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
 
-@*            <input type="file" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
-            <input type="submit" value="Upload" />*@
+            @*            <input type="file" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
+        <input type="submit" value="Upload" />*@
         </div>
 
         <div class=" mb-3">
             <label class="form-label">Url Handle</label>
             <input type="text" class="form-control" id="urlHandle" asp-for="UrlHandle" />
-@*            <input type="url" class="form-control" id="urlHandle" asp-for="UrlHandle" />
-*@        </div>
+            @*            <input type="url" class="form-control" id="urlHandle" asp-for="UrlHandle" />
+        *@
+        </div>
 
         <div class=" mb-3">
             <label class="form-label">Published Date</label>
             <input type="date" class="form-control" id="publishedDate" asp-for="PublishedDate" />
-@*            <input type="datetime-local" class="form-control" id="publishedDate" asp-for="PublishedDate" />
-*@        </div>
+            @*            <input type="datetime-local" class="form-control" id="publishedDate" asp-for="PublishedDate" />
+        *@
+        </div>
 
         <div class=" mb-3">
             <label class="form-label">Author</label>
@@ -58,10 +68,14 @@
 
         <div class=" mb-3">
             <button type="submit" class="btn btn-light">Save</button>
+            
+            <button type="submit" class="btn btn-danger" asp-area="" asp-controller="Tags" asp-action="Delete">Delete</button>
         </div>
-    </form>
+        </form>
 
-
+    }
+    else
+    {
+        <p>"No Blog Post Found"</p>
+    }
 </div>
-
-

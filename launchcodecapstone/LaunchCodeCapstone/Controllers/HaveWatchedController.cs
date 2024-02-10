@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using LaunchCodeCapstone.Models;
 using LaunchCodeCapstone.ViewModels;
+using LaunchCodeCapstone.Data;
 using System;
 
 namespace LaunchCodeCapstone.Controllers
@@ -14,21 +15,21 @@ namespace LaunchCodeCapstone.Controllers
 			context = dbContext;
 		}
 
-		public IActionResult Index()
-		{
-			List<HaveWatched> haveOrHaveNotWatched = context.Watched.ToList();
-			return View(haveOrHaveNotWatched);
-		}
+		//public IActionResult Index()
+		//{
+		//	List<HaveWatched> haveOrHaveNotWatched = context.Watched.ToList();
+		//	return View(haveOrHaveNotWatched);
+		//}
 
-		public IActionResult AddHaveOrHAveNOtWatched(AddMovieEntryViewModel addMovieViewModel) 
-		{
-			if ()
-			{
+		//public IActionResult AddHaveOrHAveNOtWatched(AddMovieEntryViewModel addMovieViewModel) 
+		//{
+		//	if ()
+		//	{
 
-			}
+		//	}
 
 		
-		}
+		//}
 	}
 }
 

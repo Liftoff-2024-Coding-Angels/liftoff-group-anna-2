@@ -2,17 +2,16 @@
 
 <h1>Delete Movie</h1>
 
-<form method="post">
-    @foreach (var aMovie in Model)
+<form method="post" asp-controller="MovieEntry" asp-action="Delete">
+    @foreach (MovieEntry Movie in Model)
     {
         <div class="form-group">
             <label>
-                <span>@aMovie.Title</span>
-                <input type="checkbox" name="MovieEntryIds" value="MovieEntryId" class="form-control">
+                <span>@Movie.Title</span>
+                <input type="checkbox" name="MovieEntryIds" value="@Movie.MovieEntryId" class="form-control">
             </label>
         </div>
     }
 
     <input type="submit" value="Delete Selected Movies" class="btn btn-danger">
-
 </form>

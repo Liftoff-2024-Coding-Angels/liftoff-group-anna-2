@@ -2,7 +2,7 @@
 
 <h1>Add New Movie</h1>
 
-<form asp-controller="Movie" asp-action="Create" method="post">
+<form asp-controller="MovieEntry" asp-action="Create" method="post">
 
     <div class="form-group">
         <label asp-for="Title">Title</label>
@@ -30,7 +30,14 @@
 
     @*<button type="submit" value="Add Movie" />*@
     @*<input type="submit" value="Add Movie" />*@
-    <button id="Button" type="submit" name="submit" formmethod="post" class="btn btn-secondary btn-sm">Save</button>
+    <button id="Button" type="submit" name="submit" formmethod="post" class="btn btn-primary">Save</button>
 </form>
 
-@* \*asp-format="{0:yyyy-MM-dd}"*\ *@
+<br />
+
+<a class="btn btn-secondary btn-sm" asp-controller="MovieEntry" asp-action="Index" asp-route-id="/Index">View Added Movies</a>
+
+
+@* \*asp-format="{0:yyyy-MM-dd}"*\
+asp-route-id="@Movie.MovieEntryId"
+*@

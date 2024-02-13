@@ -87,22 +87,27 @@ namespace LaunchCodeCapstone.Controllers
 			return View(aMovieEntry);
 		}
 
-		[HttpGet]
-        [Route("/Delete")]
+        [HttpGet]
+        [Route("/Delete/{movieEntryId}")]
         public async Task<IActionResult> Delete(int movieEntryId)
-		{
+        {
             MovieEntry aMovie = await context.MovieEntries.FindAsync(movieEntryId);
-            if (aMovie == null)
-            {
+           // if (aMovie == null)
+           // {
                 // Return 404 Not Found if the movie entry does not exist
-                return NotFound();
-            }
-            return View(aMovie);
+               // return NotFound();
+           // }
+
+            var movies = new List<MovieEntry> { aMovie };
+            return View(movies);
+			//return View(aMovie);
+			//return View();
         }
 
-		[HttpPost]
+
+        [HttpPost]
         [Route("/Delete")]
-        public async Task<IActionResult> DeleteAsync(int[] movieEntryIDs)
+        public async Task<IActionResult> Delete(int[] movieEntryIDs)
 		{
 			foreach(int movieEntryId in movieEntryIDs)
 			{

@@ -1,0 +1,33 @@
+﻿@model List<DM.MovieApi.MovieDb.Movies.MovieInfo>
+
+@{
+    
+
+
+@{
+    <h1>Movies</h1>
+
+    <p>@Model</p>
+}
+@* <h1>Movies</h1>
+
+    @if (Model.Count == 0)
+    {
+        <p>No movie yet!</p>
+    }
+    else
+    {
+        @foreach (Model.movies in Model)
+        {
+            <table class="table">
+                <tr>
+                    <td>Model.Id</td>
+                    <td>Model.Title</td>
+                </tr>
+
+        </table>
+        }
+    }
+    <p><a asp-controller="Movie" asp-action="Results">Add more movies</a></p>*@
+
+}

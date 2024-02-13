@@ -18,6 +18,14 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+string bearerToken = ("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjkyOWMxY2Q5MTgzOWNkYWU5MzZhNjEzMmNmNGUyNyIsInN1YiI6IjY1YWMwMjliYWQ1OWI1MDBlYjc4NTFkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TKw26QnxggH6qX2MFMraVlrRetVSCODmGMBX_L6WTJw");
+
+MovieDbFactory.RegisterSettings(bearerToken);
+
+// as the factory returns a Lazy<T> instance, just grab the Value from the Lazy<T>
+// and assign to a local variable.
+IApiMovieRequest movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
+
 // Configure the HTTP request pipeline.w
 if (app.Environment.IsDevelopment())
 {

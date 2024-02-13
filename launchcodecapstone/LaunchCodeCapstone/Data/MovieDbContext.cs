@@ -6,27 +6,35 @@ namespace LaunchCodeCapstone.Data
 {
     public class MovieDbContext : IdentityDbContext
     {
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        public DbSet<Movie>? Movies { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+
         //need to connect to Hailey's to see all classes/tables
-        public DbSet<Users>? User {  get; set; }
         public MovieDbContext(DbContextOptions<MovieDbContext> options)
             : base(options)
         {
         }
-       public MovieDbContext()
-        { 
+
+        public MovieDbContext()
+        {
         }
 
-      /*  protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
 
 
-            builder.Entity<Movie>()
-                .HasMany(a => a.User)
-                .WithMany(b => b.Rating)
-        }*/
 
+            modelBuilder.Entity<Movie>()
+                 .HasOne(p => p.Ratings)
+                .WithMany(b => b.Movies);
+
+
+            {
+            }
+
+
+        }
     }
-}

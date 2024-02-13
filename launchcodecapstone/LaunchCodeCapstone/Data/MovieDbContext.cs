@@ -32,9 +32,9 @@ namespace LaunchCodeCapstone.Data
                 .WithMany(b => b.Movies);
 
 
-            {
-            }
+            
 
 
         }
     }
+}

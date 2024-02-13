@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DM.MovieApi;
+using DM.MovieApi.ApiResponse;
+using DM.MovieApi.MovieDb.Movies;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LaunchCodeCapstone.Controllers
 {
@@ -26,9 +29,9 @@ namespace LaunchCodeCapstone.Controllers
                         Title = info.Title,
                         Overview = info.Overview
                     };
-                    context.Movies.Add(movie);
+                   /* context.Movies.Add(movie);
                     context.SaveChanges();
-
+                   */
                     return View(Results);
                 }
             }
@@ -68,4 +71,4 @@ namespace LaunchCodeCapstone.Controllers
           return View("Index");
           }*/
 
-}
+

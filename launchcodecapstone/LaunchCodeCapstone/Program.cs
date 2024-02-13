@@ -1,3 +1,5 @@
+using DM.MovieApi;
+using DM.MovieApi.MovieDb.Movies;
 using LaunchCodeCapstone.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

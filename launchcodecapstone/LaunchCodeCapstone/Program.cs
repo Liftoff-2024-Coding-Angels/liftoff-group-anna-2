@@ -1,4 +1,5 @@
 using LaunchCodeCapstone.Data;
+using LaunchCodeCapstone.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,17 +8,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+//this is for the application db context
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+//this is for the identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+//this is for the movie review db context
 builder.Services.AddDbContext<ReviewDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+//this is for the image repository (uploading images in a review
+builder.Services.AddScoped<IImageRepository, CloudinaryImagesRepository>();
 
 var app = builder.Build();
 

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LaunchCodeCapstone.Controllers
 {
-    public class MovieController1 : Controller
+    public class MovieController : Controller
     {
         public IActionResult Index()
         {
@@ -14,14 +14,15 @@ namespace LaunchCodeCapstone.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> Results()
+        public async Task<IActionResult> Results(string searchTerm)
         {
             var movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
 
-            ApiSearchResponse<MovieInfo> response = await movieApi.SearchByTitleAsync("Cinderella");
+            ApiSearchResponse<MovieInfo> response = await movieApi.SearchByTitleAsync(searchTerm);
 
             foreach (MovieInfo info in response.Results)
             {
+
                 if (ModelState.IsValid)
                 {
                     Models.Movie movie = new Models.Movie()
@@ -29,31 +30,21 @@ namespace LaunchCodeCapstone.Controllers
                         Title = info.Title,
                         Overview = info.Overview
                     };
-                   /* context.Movies.Add(movie);
-                    context.SaveChanges();
-                   */
+                    /* context.Movies.Add(movie);
+                     context.SaveChanges();
+                    */
                     return View(Results);
+
+
+
                 }
             }
-            return View("Search");
+            return View("Index");
         }
-        /*
-       
-        /*public async Task<IActionResult> Results(string search)
-        {
-            var movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
-
-            ApiSearchResponse<MovieInfo> response = await movieApi.SearchByTitleAsync(search);
-
-            foreach (MovieInfo info in response.Results)
-            {
-                return View("APIdisplay", info);
-            }
-            return View("Search");
-        */
     }
-
 }
+    
+    
 /*public IActionResult AddMovie(response)
       {
           if (ModelState.IsValid)

@@ -129,18 +129,18 @@ namespace LaunchCodeCapstone.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteReview(EditReviewRequest editReviewRequest)
         {
-            var review = await reviewDbContext.Reviews.FindAsync(editReviewRequest.Id); //.Find(editTagRequest.Id);
+            var deleteReview = await reviewDbContext.Reviews.FindAsync(editReviewRequest.Id); //.Find(editTagRequest.Id);
 
-            if (review != null)
+            if (deleteReview != null)
             {
-                reviewDbContext.Reviews.Remove(review);
+                reviewDbContext.Reviews.Remove(deleteReview);
                 await reviewDbContext.SaveChangesAsync(); //.SaveChanges();
 
                 return RedirectToAction("ReviewsList");
             }
 
             //return the result back to the edit page according to the id
-            return RedirectToAction("EditReview", new { id = editReviewRequest.Id });
+            return RedirectToAction("EditReview", new { Id = editReviewRequest.Id });
         }
 
     }

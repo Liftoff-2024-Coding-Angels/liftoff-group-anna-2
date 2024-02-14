@@ -7,70 +7,69 @@
 <div class="container py-5">
     @if (Model != null)
     {
-                    <form method="post">
+        <form method="post">
 
-        <div class=" mb-3">
-            <label class="form-label">Id</label>
-            <input type="text" class="form-control" id="id" asp-for="Id" readonly />
-        </div>
+            <div class=" mb-3">
+                <label class="form-label">Id</label>
+                <input type="text" class="form-control" id="id" asp-for="Id" readonly />
+            </div>
 
-        <div class=" mb-3">
-            <label class="form-label">Heading</label>
-            <input type="text" class="form-control" id="heading" asp-for="Heading" />
-        </div>
+            <div class=" mb-3">
+                <label class="form-label">Heading</label>
+                <input type="text" class="form-control" id="heading" asp-for="Heading" />
+            </div>
 
-        <div class=" mb-3">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" asp-for="Title" />
-        </div>
+            <div class=" mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" asp-for="Title" />
+            </div>
 
-        <div class=" mb-3">
-            <label class="form-label">Content</label>
-            <textarea class="form-control" id="content" asp-for="Content">Content</textarea>
-        </div>
+            <div class=" mb-3">
+                <label class="form-label">Content</label>
+                <textarea class="form-control" id="content" asp-for="Content">Content</textarea>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Description</label>
-            <input type="text" class="form-control" id="description" asp-for="Description" />
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" asp-for="Description" />
+            </div>
 
-        <div class=" mb-3">
-            <label class="form-label">Featured Image Upload Url</label>
-            <input type="text" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
+            <div class=" mb-3">
+                <label class="form-label">Featured Image Upload Url</label>
+                <input type="text" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
 
-            @*            <input type="file" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
-        <input type="submit" value="Upload" />*@
-        </div>
+                @*            <input type="file" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
+            <input type="submit" value="Upload" />*@
+            </div>
 
-        <div class=" mb-3">
-            <label class="form-label">Url Handle</label>
-            <input type="text" class="form-control" id="urlHandle" asp-for="UrlHandle" />
-            @*            <input type="url" class="form-control" id="urlHandle" asp-for="UrlHandle" />
-        *@
-        </div>
+            <div class=" mb-3">
+                <label class="form-label">Url Handle</label>
+                <input type="text" class="form-control" id="urlHandle" asp-for="UrlHandle" />
+                @*            <input type="url" class="form-control" id="urlHandle" asp-for="UrlHandle" />
+            *@
+            </div>
 
-        <div class=" mb-3">
-            <label class="form-label">Published Date</label>
-            <input type="date" class="form-control" id="publishedDate" asp-for="PublishedDate" />
-            @*            <input type="datetime-local" class="form-control" id="publishedDate" asp-for="PublishedDate" />
-        *@
-        </div>
+            <div class=" mb-3">
+                <label class="form-label">Published Date</label>
+                <input type="date" class="form-control" id="publishedDate" asp-for="PublishedDate" />
+                @*            <input type="datetime-local" class="form-control" id="publishedDate" asp-for="PublishedDate" />
+            *@
+            </div>
 
-        <div class=" mb-3">
-            <label class="form-label">Author</label>
-            <input type="text" class="form-control" id="Author" asp-for="Author" />
-        </div>
+            <div class=" mb-3">
+                <label class="form-label">Author</label>
+                <input type="text" class="form-control" id="Author" asp-for="Author" />
+            </div>
 
-        <div class="mb-3">
-            <label class="form-check-label">Visible?</label>
-            <input type="checkbox" class="form-check-input" id="visible" asp-for="Visible" />
-        </div>
+            <div class="mb-3">
+                <label class="form-check-label">Visible?</label>
+                <input type="checkbox" class="form-check-input" id="visible" asp-for="Visible" />
+            </div>
 
-        <div class=" mb-3">
-            <button type="submit" class="btn btn-light">Save</button>
-            
-            <button type="submit" class="btn btn-danger" asp-area="" asp-controller="Tags" asp-action="Delete">Delete</button>
-        </div>
+            <div class=" mb-3" d-flex>
+                <button type="submit" class="btn btn-light">Save</button>
+                <button type="submit" class="btn btn-danger" asp-area="" asp-controller="Reviews" asp-action="DeleteReview">Delete</button>
+            </div>
         </form>
 
     }

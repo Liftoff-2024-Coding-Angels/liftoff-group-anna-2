@@ -16,25 +16,7 @@ namespace LaunchCodeCapstone.Data
             : base(options)
         {
         }
+       
 
-        public MovieDbContext()
-        {
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-
-
-            modelBuilder.Entity<Movie>()
-                 .HasOne(p => p.Ratings)
-                .WithMany(b => b.Movies);
-
-
-            
-
-
-        }
     }
 }

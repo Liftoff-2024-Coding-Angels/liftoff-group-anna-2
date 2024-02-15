@@ -1,9 +1,9 @@
-﻿ @using LaunchCodeCapstone.Models
- @model List<Movie>
+﻿ @model List<DM.MovieApi.MovieDb.Movies.MovieInfo>
 
     <h1>Movies</h1>
 
-    @foreach(LaunchCodeCapstone.Models.Movie movie in Model){
+@foreach (DM.MovieApi.MovieDb.Movies.MovieInfo movie in Model)
+{
     
             <table class="table">
                 <tr>

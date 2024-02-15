@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections;
 
 namespace LaunchCodeCapstone.Models
 {
@@ -7,7 +8,7 @@ namespace LaunchCodeCapstone.Models
         public int Title { get; set; }
         public string Overview { get; set; }
 
-        public List<SelectListItem> Movies { get; set; } = new List<SelectListItem>();
+        
 
     }
 }

@@ -16,14 +16,14 @@
                 <tr>
                     <th>Id</th>
                     <th>Heading</th>
-                    <th>Title</th>
+@*                    <th>Title</th>
                     <th>Content</th>
                     <th>Description</th>
                     <th>FeaturedImageUrl</th>
                     <th>UrlHandle</th>
                     <th>PublishedDate</th>
                     <th>Author</th>
-                    <th>Visible</th>
+                    <th>Visible</th>*@
                 </tr>
             </thead>
 
@@ -33,14 +33,14 @@
                     <tr>
                         <td>@review.Id</td>
                         <td>@review.Heading </td>
-                        <td> @review.Title</td>
+ @*                       <td> @review.Title</td>
                         <td> @review.Content</td>
                         <td>@review.Description </td>
                         <td> @review.FeaturedImageUrl</td>
                         <td> @review.UrlHandle</td>
                         <td>@review.PublishedDate </td>
                         <td> @review.Author</td>
-                        <td> @review.Visible</td>
+                        <td> @review.Visible</td>*@
                         <td>
                            <a asp-area="" asp-controller="Reviews" asp-action="EditReview" asp-route-id="@review.Id">Edit</a>
                         </td>

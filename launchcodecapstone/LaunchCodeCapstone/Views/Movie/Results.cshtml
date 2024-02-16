@@ -7,13 +7,15 @@
     
             <table class="table">
                 <tr>
-                   <td>@movie.Id</td>
-                    <td>@movie.Title</td>            
-                </tr>
+                   
+                   <td>@movie.Title</td>
+                   <td>@movie.Overview</td>
+                   <td>@movie.ReleaseDate</td>
+                   <td>@movie.PosterPath</td>
+        </tr>
 
         </table>
     }
     
     <p><a asp-controller="Movie" asp-action="Search">Add more movies</a></p>
 
-}

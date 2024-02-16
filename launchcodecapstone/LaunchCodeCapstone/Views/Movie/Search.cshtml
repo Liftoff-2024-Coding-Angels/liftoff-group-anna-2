@@ -1,8 +1,10 @@
 ﻿
-@{
+
     <h1>Search for a movie! </h1>
 
-    <form asp-controller="MovieController" asp-action="Search" method="get">
+@using (Html.BeginForm("Results", "Movie", FormMethod.Post))
+{
+<form asp-controller="MovieController" asp-action="Search" method="post">
         <div class="form-group">
             <label> Title</label>
             <input name="Title" class="form-control" />
@@ -11,4 +13,6 @@
 
         <input type="submit" value="Add Movie" />
     </form>
+    
 }
+

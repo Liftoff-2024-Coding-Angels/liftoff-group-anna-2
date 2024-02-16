@@ -15,7 +15,7 @@ namespace LaunchCodeCapstone.Repositories
             account = new Account(
                 configuration.GetSection("Cloudinary")["CloudName"],
                 configuration.GetSection("Cloudinary")["ApiKey"],
-                configuration.GetSection("Cloudinary")["CloudName"]
+                configuration.GetSection("Cloudinary")["ApiSecret"]
                 );
         }
         public async Task<string> UploadAsync(IFormFile file)

@@ -7,6 +7,7 @@ namespace LaunchCodeCapstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //when you have an api controller it doesn't expect a view to come back, it expects http responses
     public class ImagesController : ControllerBase
     {
         //testing

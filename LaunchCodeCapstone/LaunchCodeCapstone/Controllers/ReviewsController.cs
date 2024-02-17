@@ -1,7 +1,9 @@
 ﻿using LaunchCodeCapstone.Data;
 using LaunchCodeCapstone.Models.BlogStyleReview;
 using LaunchCodeCapstone.Models.ViewModels;
+using LaunchCodeCapstone.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace LaunchCodeCapstone.Controllers
@@ -9,12 +11,15 @@ namespace LaunchCodeCapstone.Controllers
     public class ReviewsController : Controller
     {
         private readonly ReviewDbContext reviewDbContext;
-        public ReviewsController(ReviewDbContext reviewDbContext)
+        private readonly IReviewRepository reviewRepository;
+
+        public ReviewsController(IReviewRepository reviewRepository)//ReviewDbContext reviewDbContext)
         {
-            this.reviewDbContext = reviewDbContext;
+            //this.reviewDbContext = reviewDbContext;
+            this.reviewRepository = reviewRepository;
         }
 
-
+        [Authorize]
         [HttpGet]
         [ActionName("AddReview")]
 
@@ -27,6 +32,7 @@ namespace LaunchCodeCapstone.Controllers
         [HttpPost]
         public async Task<IActionResult> AddReview(AddReviewRequest addReviewRequest)
         {
+            //mapping the view model and review model together
             var review = new Review
             {
                 Heading = addReviewRequest.Heading,
@@ -40,8 +46,9 @@ namespace LaunchCodeCapstone.Controllers
                 Visible = addReviewRequest.Visible
             };
 
-            await reviewDbContext.Reviews.AddAsync(review);
-            await reviewDbContext.SaveChangesAsync();
+            //await reviewDbContext.Reviews.AddAsync(review);
+            //await reviewDbContext.SaveChangesAsync();
+            await reviewRepository.AddAsync(review);
             return RedirectToAction("AddReview");
         }
 
@@ -50,12 +57,14 @@ namespace LaunchCodeCapstone.Controllers
         [ActionName("ReviewsList")]
         public async Task<IActionResult> ReviewsList()
         {
-            var reviews = await reviewDbContext.Reviews.ToListAsync(); //.ToList();
+            //call the repository to get the data from the database
+            var reviews = await reviewRepository.GetAllAsync();//reviewDbContext.Reviews.ToListAsync(); //.ToList();
 
             return View(reviews);
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ActionName("EditReview")]
         //id in param so that it edits the correct one
@@ -63,7 +72,7 @@ namespace LaunchCodeCapstone.Controllers
         {
             //you can use the find method or the first or default, or single or default
             //var tag = reviewDbContext.Tags.Find(id);
-            var review = await reviewDbContext.Reviews.FirstOrDefaultAsync(x => x.Id == id); //.FirstOrDefault(x => x.Id == id);
+            var review = await reviewRepository.GetAsync(id); //reviewDbContext.Reviews.FirstOrDefaultAsync(x => x.Id == id); //.FirstOrDefault(x => x.Id == id);
 
             if (review != null)
             {
@@ -102,42 +111,57 @@ namespace LaunchCodeCapstone.Controllers
                 Author = editReviewRequest.Author,
                 Visible = editReviewRequest.Visible
             };
+            //submitting the info to the repo to update
+            var updatedReview = await reviewRepository.UpdateAsync(review);
 
-            var existingReview = await reviewDbContext.Reviews.FindAsync(review.Id); //.Find(tag.Id);
-
-            if (existingReview != null)
+            if (updatedReview != null)
             {
-                existingReview.Heading = review.Heading;
-                existingReview.Title = review.Title;
-                existingReview.Content = review.Content;
-                existingReview.Description = review.Description;
-                existingReview.FeaturedImageUrl = review.FeaturedImageUrl;
-                existingReview.UrlHandle = review.UrlHandle;
-                existingReview.PublishedDate = review.PublishedDate;
-                existingReview.Author = review.Author;
-                existingReview.Visible = review.Visible;
-
-                //save changes
-                await reviewDbContext.SaveChangesAsync(); //.SaveChanges();
-
-                //sending it back to edit page and giving it the parameter
                 return RedirectToAction("ReviewsList", new { id = editReviewRequest.Id });
             }
-            return RedirectToAction("EditReview", new { id = editReviewRequest.Id });
+
+            //var existingReview = await reviewDbContext.Reviews.FindAsync(review.Id); //.Find(tag.Id);
+
+            //if (existingReview != null)
+            //{
+            //    existingReview.Heading = review.Heading;
+            //    existingReview.Title = review.Title;
+            //    existingReview.Content = review.Content;
+            //    existingReview.Description = review.Description;
+            //    existingReview.FeaturedImageUrl = review.FeaturedImageUrl;
+            //    existingReview.UrlHandle = review.UrlHandle;
+            //    existingReview.PublishedDate = review.PublishedDate;
+            //    existingReview.Author = review.Author;
+            //    existingReview.Visible = review.Visible;
+
+            //    //save changes
+            //    await reviewDbContext.SaveChangesAsync(); //.SaveChanges();
+
+            //    //sending it back to edit page and giving it the parameter
+            //    return RedirectToAction("ReviewsList", new { id = editReviewRequest.Id });
+            //}
+            return RedirectToAction("ReviewsList", new { id = editReviewRequest.Id });
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteReview(EditReviewRequest editReviewRequest)
         {
-            var deleteReview = await reviewDbContext.Reviews.FindAsync(editReviewRequest.Id); //.Find(editTagRequest.Id);
 
-            if (deleteReview != null)
+            //call the repository to delete the review
+            var deletedReview = await reviewRepository.DeleteAsync(editReviewRequest.Id);
+
+            if (deletedReview != null)
             {
-                reviewDbContext.Reviews.Remove(deleteReview);
-                await reviewDbContext.SaveChangesAsync(); //.SaveChanges();
-
                 return RedirectToAction("ReviewsList");
             }
+            //var deleteReview = await reviewDbContext.Reviews.FindAsync(editReviewRequest.Id); //.Find(editTagRequest.Id);
+
+            //if (deleteReview != null)
+            //{
+            //    reviewDbContext.Reviews.Remove(deleteReview);
+            //    await reviewDbContext.SaveChangesAsync(); //.SaveChanges();
+
+            //    return RedirectToAction("ReviewsList");
+            //}
 
             //return the result back to the edit page according to the id
             return RedirectToAction("EditReview", new { Id = editReviewRequest.Id });

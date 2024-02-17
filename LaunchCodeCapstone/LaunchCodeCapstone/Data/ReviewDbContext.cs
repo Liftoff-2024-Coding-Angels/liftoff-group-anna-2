@@ -14,5 +14,9 @@ namespace LaunchCodeCapstone.Data
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<LikeReview> LikeReview { get; set; }
+
+        public DbSet<ReviewComments> ReviewComments { get; set; }
+
     }
 }

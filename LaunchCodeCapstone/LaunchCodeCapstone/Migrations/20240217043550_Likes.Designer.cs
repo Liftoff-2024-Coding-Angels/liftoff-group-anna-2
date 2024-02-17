@@ -4,6 +4,7 @@ using LaunchCodeCapstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LaunchCodeCapstone.Migrations
 {
     [DbContext(typeof(ReviewDbContext))]
-    partial class ReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240217043550_Likes")]
+    partial class Likes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,32 +88,6 @@ namespace LaunchCodeCapstone.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.ReviewComments", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ReviewId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReviewId");
-
-                    b.ToTable("ReviewComments");
-                });
-
             modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.Tag", b =>
                 {
                     b.Property<Guid>("Id")
@@ -155,15 +131,6 @@ namespace LaunchCodeCapstone.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.ReviewComments", b =>
-                {
-                    b.HasOne("LaunchCodeCapstone.Models.BlogStyleReview.Review", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ReviewTag", b =>
                 {
                     b.HasOne("LaunchCodeCapstone.Models.BlogStyleReview.Review", null)
@@ -181,8 +148,6 @@ namespace LaunchCodeCapstone.Migrations
 
             modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.Review", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618

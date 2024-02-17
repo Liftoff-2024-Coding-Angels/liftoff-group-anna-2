@@ -25,8 +25,13 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //this is for the review repository
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-//this is for the image repository (uploading images in a review
+//this is for the image repository (uploading images in a review)
 builder.Services.AddScoped<IImageRepository, CloudinaryImagesRepository>();
+//likes repository
+builder.Services.AddScoped<ILikeReviewRepository, LikeReviewRepository>();
+//comments repository
+builder.Services.AddScoped<IReviewCommentsRepository, ReviewCommentsRepository>();
+
 
 var app = builder.Build();
 

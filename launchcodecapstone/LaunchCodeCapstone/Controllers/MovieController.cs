@@ -6,6 +6,7 @@ using LaunchCodeCapstone.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Net.Http.Headers;
 
 
 namespace LaunchCodeCapstone.Controllers
@@ -34,22 +35,22 @@ namespace LaunchCodeCapstone.Controllers
 
             ApiSearchResponse<MovieInfo> response = await movieApi.SearchByTitleAsync(searchTerm);
 
-            //making each result an object to put it into display list
+            
             //API info already an object
 
             List<MovieInfo> movieList = new List<MovieInfo>();
-           //Creating List for Movie objects to go into from call to API
-                foreach (MovieInfo info in response.Results)
-                {
-                    movieList.Add(info);
+            //Creating List for Movie objects to go into from call to API
+            foreach (MovieInfo info in response.Results)
+            {
+                movieList.Add(info);
 
-                    //Dont need extra code if defined in view?
-                    //info.Title.ToList();
-                    //info.Overview.ToList();
+                //Dont need extra code if defined in view?
+                //info.Title.ToList();
+                //info.Overview.ToList();
 
-                };
-               
-            
+            };
+
+
             /* context.Movies.Add(movie);
              context.SaveChanges();
             */
@@ -60,23 +61,59 @@ namespace LaunchCodeCapstone.Controllers
 
         }
 
+        /*using RestSharp;
 
+
+var options = new RestClientOptions("https://api.themoviedb.org/3/movie/638/watch/providers");
+var client = new RestClient(options);
+var request = new RestRequest("");
+request.AddHeader("accept", "application/json");
+request.AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjkyOWMxY2Q5MTgzOWNkYWU5MzZhNjEzMmNmNGUyNyIsInN1YiI6IjY1YWMwMjliYWQ1OWI1MDBlYjc4NTFkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TKw26QnxggH6qX2MFMraVlrRetVSCODmGMBX_L6WTJw");
+var response = await client.GetAsync(request);
+
+Console.WriteLine("{0}", response.Content);
+*/
         [HttpGet]
         public IActionResult Search()
         {
             return View();
         }
-       
 
-       /* [HttpPost]
-        public IActionResult Search()
+        public async Task<IActionResult> WheretowatchAsync()
         {
-            //TempData[search] = searchTerm;
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
 
+            {
+                Method = HttpMethod.Get,
+                //Uses Movie Id to search watch provider
+                RequestUri = new Uri("https://api.themoviedb.org/3/movie/${}/watch/providers")
+    //            Headers =
+    //{
+    //    { "accept", "application/json" },
+    //    { "Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjkyOWMxY2Q5MTgzOWNkYWU5MzZhNjEzMmNmNGUyNyIsInN1YiI6IjY1YWMwMjliYWQ1OWI1MDBlYjc4NTFkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TKw26QnxggH6qX2MFMraVlrRetVSCODmGMBX_L6WTJw" },
+    //},
+          };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(body);
+
+            }
             return View();
 
         }
-       */
+
+        /* [HttpPost]
+         public IActionResult Search()
+         {
+             //TempData[search] = searchTerm;
+
+             return View();
+
+         }
+        */
     }
 }
 

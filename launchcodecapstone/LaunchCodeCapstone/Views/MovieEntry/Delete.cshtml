@@ -2,6 +2,14 @@
 
 <h1>Delete Movie</h1>
 
+
+@if (Model.Count == 0)
+{
+    <p>No Movies have been added yet!</p>
+}
+else
+{
+
 <form method="post" asp-controller="MovieEntry" asp-action="Delete">
     @foreach (MovieEntry Movie in Model)
     {
@@ -15,3 +23,4 @@
 
     <input type="submit" value="Delete Selected Movies" class="btn btn-danger">
 </form>
+}

@@ -17,7 +17,7 @@ namespace LaunchCodeCapstone.ViewModels
   //      [Required(ErrorMessage = "A rating is required.")]
 		//public List<int> Rating { get; set; }
 
-        public AddMovieEntryViewModel()
+		public AddMovieEntryViewModel()
 		{
 		}
 	}

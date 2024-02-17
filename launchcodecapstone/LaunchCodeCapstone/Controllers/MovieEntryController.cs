@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using LaunchCodeCapstone.Models;
 using LaunchCodeCapstone.Data;
 using LaunchCodeCapstone.ViewModels;
+using DM.MovieApi.MovieDb.Movies;
 //using Microsoft.AspNetCore.Cors;
 
 namespace LaunchCodeCapstone.Controllers
@@ -65,47 +66,113 @@ namespace LaunchCodeCapstone.Controllers
         }
 
 		[HttpGet]
-        [Route("/Edit")]
-        public IActionResult Edit(int movieEntryId)
+        [Route("/Edit/{id}")]
+        public async Task<IActionResult> Edit (int id)
 		{
-			MovieEntry aMovie = context.MovieEntries.Find(movieEntryId);
+			MovieEntry? aMovie = await context.MovieEntries.FirstOrDefaultAsync(m => m.MovieEntryId == id);
 			return View(aMovie);
 
 		}
 
-		[HttpPost]
+       /* [HttpGet]
         [Route("/Edit")]
-        public async Task<IActionResult> Edit(MovieEntry aMovieEntry)
+        public IActionResult Edit()
+        {
+            List<MovieEntry> aMovie = context.MovieEntries.Find(movieEntryId);
+            return View(aMovie);
+
+        }*/
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AddMovieEntryViewModel addMovieEntryViewModel)
 		{
-			if (ModelState.IsValid)
+            MovieEntry aMovie = new MovieEntry
+            {
+                Title = addMovieEntryViewModel.Title,
+                Date = addMovieEntryViewModel.Date,
+                NumRating = addMovieEntryViewModel.NumRating
+            };
+
+            if (ModelState.IsValid)
 			{
-				context.Entry(aMovieEntry).State = EntityState.Modified;
+				context.Entry(aMovie).State = EntityState.Modified;
 				await context.SaveChangesAsync();
 				return Redirect("Index");
 			}
 
-			return View(aMovieEntry);
+			return View(aMovie);
 		}
 
-        [HttpGet]
-        [Route("/Delete/{movieEntryId}")]
-        public async Task<IActionResult> Delete(int movieEntryId)
-        {
-            MovieEntry aMovie = await context.MovieEntries.FindAsync(movieEntryId);
-           // if (aMovie == null)
-           // {
-                // Return 404 Not Found if the movie entry does not exist
-               // return NotFound();
-           // }
+		/*[HttpGet]
+		[Route("/Delete/{id}")]
+		public async Task<IActionResult> Delete(int id)
+		{
+			MovieEntry aMovie = await context.MovieEntries.FindAsync(id);
+			if (aMovie == null)
+			{
+				//Return 404 Not Found if the movie entry does not exist
+			 return NotFound();
+			}
 
-            var movies = new List<MovieEntry> { aMovie };
-            return View(movies);
-			//return View(aMovie);
-			//return View();
-        }
+			var movies = new List<MovieEntry> { aMovie };
+			return View(movies);
+            //return View(aMovie);
+            //return View();
+        }*/
+
+		/*[HttpGet]
+		[Route("/Delete")]
+		public async Task<IActionResult> Delete(int? id)
+		{
+			MovieEntry? aMovie = await context.MovieEntries.FirstOrDefaultAsync(m => m.MovieEntryId == id);
+			Console.WriteLine(aMovie);
+		*//*	if (aMovie == null)
+			{
+				Console.WriteLine("A movie not in database");
+				return NotFound();
+
+			}*/
 
 
-        [HttpPost]
+		/*	var movie = await context.MovieEntries
+			.FirstOrDefaultAsync(m => m.MovieEntryId == id);
+			if (movie == null)
+			{
+				return NotFound();
+			}
+*//*
+			//return View(movie);
+			return View(aMovie);
+		}*/
+
+		//[HttpDelete]
+		[HttpPost]
+		//[Route("/Delete")]
+
+		public async Task<IActionResult> Delete(int[] movieEntryIds)
+		{
+			foreach(int movieEntryId in movieEntryIds)
+			{
+                MovieEntry? aMovie = await context.MovieEntries.FindAsync(movieEntryId);
+				context.MovieEntries.Remove(aMovie);
+                Console.WriteLine(aMovie);
+            }
+			
+			//var entry = await context.MovieEntries.FindAsync(addMovieEntryViewModel.MovieEntryId);
+
+			/*if (entry != null)
+			{
+                context.MovieEntries.Remove(entry);
+				
+			}*/
+            await context.SaveChangesAsync();
+            return RedirectToAction("Index");
+		}
+
+
+
+       /* [HttpDelete]
         [Route("/Delete")]
         public async Task<IActionResult> Delete(int[] movieEntryIDs)
 		{
@@ -119,7 +186,7 @@ namespace LaunchCodeCapstone.Controllers
            await context.SaveChangesAsync();
 			Console.WriteLine("Item deleted.");
            return View();
-		}
+		}*/
 
 		//public IActionResult SetRating(AddMovieEntryViewModel addMovieEntryViewModel)
 		//{

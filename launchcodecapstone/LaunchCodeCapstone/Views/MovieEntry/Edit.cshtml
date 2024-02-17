@@ -1,0 +1,54 @@
+﻿@model List<LaunchCodeCapstone.Models.MovieEntry>
+
+<h1>List of Movies</h1>
+
+        @foreach (MovieEntry Movie in Model)
+        {
+        <form asp-controller="MovieEntry" asp-action="Edit" method="post">
+
+            <div class="form-group">
+                <label asp-for="@Movie.Title">Title</label>
+                <input asp-for="@Movie.Title" class="form-control" />
+                <span asp-validation-for="@Movie.Title" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <label asp-for="@Movie.Date">New Date:</label>
+                <input class="form-control" min="2023-01-01" value="2023-01-01" type="date" asp-for="@Movie.Date" asp-format="{0:yyyy-MM-dd}" />
+                <span asp-validation-for="@Movie.Date" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <label asp-for="@Movie.NumRating">New Rating:</label>
+                <input class="form-control" max="5" asp-for="@Movie.NumRating" />
+                <span asp-validation-for="@Movie.NumRating" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <button type="submit" class=" btn btn-danger" asp-controller="MovieEntry" asp-action="Edit">Save Edit</button>
+            <button type="submit" class=" btn btn-danger" asp-controller="MovieEntry" asp-action="Delete">Delete</button>
+  
+        </form>
+
+
+
+     @*        <form>
+                <td>@Movie.MovieEntryId</td>
+                <td><a asp-controller="Employer" asp-action="About" asp-route-id="@Movie.MovieEntryId">@Movie.Title</a></td>
+                <td>@Movie.Date</td>
+                <td>@Movie.NumRating</td>
+                <td><a asp-controller="MovieEntry" asp-action="Edit" asp-route-id="/Edit">Edit</a></td>
+                @*<td><a asp-controller="MovieEntry" asp-action="Delete" asp-route-id="/Delete">Delete</a></td>
+                <td><button type="submit" class=" btn btn-danger" asp-controller="MovieEntry" asp-action="Delete">Delete</button></td>
+            </form> *@
+
+
+        }
+
+
+<a class="btn btn-primary" asp-controller="MovieEntry" asp-action="Create" role="button">Add New Movie</a>

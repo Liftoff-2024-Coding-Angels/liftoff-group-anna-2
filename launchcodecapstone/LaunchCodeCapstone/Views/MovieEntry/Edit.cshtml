@@ -1,41 +1,40 @@
-﻿@model List<LaunchCodeCapstone.Models.MovieEntry>
+﻿@model LaunchCodeCapstone.Models.MovieEntry
 
-<h1>List of Movies</h1>
+<h1>Edit Movie</h1>
 
-        @foreach (MovieEntry Movie in Model)
-        {
+       
         <form asp-controller="MovieEntry" asp-action="Edit" method="post">
 
             <div class="form-group">
-                <label asp-for="@Movie.Title">Title</label>
-                <input asp-for="@Movie.Title" class="form-control" />
-                <span asp-validation-for="@Movie.Title" class="text-danger"></span>
+                <label asp-for="Title">Title</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
             <br />
 
             <div class="form-group">
-                <label asp-for="@Movie.Date">New Date:</label>
-                <input class="form-control" min="2023-01-01" value="2023-01-01" type="date" asp-for="@Movie.Date" asp-format="{0:yyyy-MM-dd}" />
-                <span asp-validation-for="@Movie.Date" class="text-danger"></span>
+                <label asp-for="Date">New Date:</label>
+                <input class="form-control" min="2023-01-01" value="2023-01-01" type="date" asp-for="Date" asp-format="{0:yyyy-MM-dd}" />
+                <span asp-validation-for="Date" class="text-danger"></span>
             </div>
 
             <br />
 
             <div class="form-group">
-                <label asp-for="@Movie.NumRating">New Rating:</label>
-                <input class="form-control" max="5" asp-for="@Movie.NumRating" />
-                <span asp-validation-for="@Movie.NumRating" class="text-danger"></span>
+                <label asp-for="NumRating">New Rating:</label>
+                <input class="form-control" max="5" asp-for="NumRating" />
+                <span asp-validation-for="NumRating" class="text-danger"></span>
             </div>
 
             <br />
 
-            <button type="submit" class=" btn btn-danger" asp-controller="MovieEntry" asp-action="Edit">Save Edit</button>
-            <button type="submit" class=" btn btn-danger" asp-controller="MovieEntry" asp-action="Delete">Delete</button>
+            <button type="submit" class=" btn btn-primary" asp-controller="MovieEntry" asp-action="Edit">Save Edit</button>
+            
   
         </form>
 
-
+<br />
 
      @*        <form>
                 <td>@Movie.MovieEntryId</td>
@@ -48,7 +47,7 @@
             </form> *@
 
 
-        }
+        
 
 
 <a class="btn btn-primary" asp-controller="MovieEntry" asp-action="Create" role="button">Add New Movie</a>

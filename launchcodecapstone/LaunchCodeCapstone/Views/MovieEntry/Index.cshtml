@@ -27,7 +27,7 @@ else
                 <td>@Movie.NumRating</td>
                 <td><a asp-controller="MovieEntry" asp-action="Edit" asp-route-id="/Edit">Edit</a></td>
                 @*<td><a asp-controller="MovieEntry" asp-action="Delete" asp-route-id="/Delete">Delete</a></td>*@
-                <td><button type="submit" class=" btn btn-danger" asp-controller="MovieEntry" asp-action="Delete">Delete</button></td>
+                <td><button type="submit" value="DELETE" class=" btn btn-danger" asp-controller="MovieEntry" asp-action="Delete" onclick="return confirm('Are you sure?')">Delete</button></td>
             </tr>
 
        

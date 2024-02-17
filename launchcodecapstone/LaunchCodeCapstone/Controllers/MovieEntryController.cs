@@ -65,43 +65,65 @@ namespace LaunchCodeCapstone.Controllers
             return View();
         }
 
+
+				/*
+				[HttpGet]
+				[Route("/Edit/{id}")]
+				public async Task<IActionResult> Edit (int id)
+				{
+					var aMovie = await context.MovieEntries.Where(m => m.MovieEntryId == id).FirstOrDefaultAsync();
+					if (aMovie == null)
+					{
+						return NotFound();
+					}
+
+
+					return View(aMovie);
+				}*/
+
+
 		[HttpGet]
-        [Route("/Edit/{id}")]
-        public async Task<IActionResult> Edit (int id)
-		{
-			MovieEntry? aMovie = await context.MovieEntries.FirstOrDefaultAsync(m => m.MovieEntryId == id);
-			return View(aMovie);
+		[Route("/Edit")]
+        public async Task<IActionResult> Edit(int id)
+        {
+			var movie = await context.MovieEntries.FirstOrDefaultAsync(x => x.MovieEntryId == id);
+
+			if (movie != null)
+			{
+				var editMovie = new MovieEntry
+				{
+                    MovieEntryId = movie.MovieEntryId,
+					Title = movie.Title,
+					Date = movie.Date,
+                    NumRating = movie.NumRating
+				};
+
+				return View(editMovie);
+			}
+			return View(null);
+
 
 		}
 
-       /* [HttpGet]
-        [Route("/Edit")]
-        public IActionResult Edit()
-        {
-            List<MovieEntry> aMovie = context.MovieEntries.Find(movieEntryId);
-            return View(aMovie);
 
-        }*/
-
-
-        [HttpPost]
+		[HttpPost]
         public async Task<IActionResult> Edit(AddMovieEntryViewModel addMovieEntryViewModel)
 		{
-            MovieEntry aMovie = new MovieEntry
+         /*   MovieEntry aMovie = new MovieEntry
             {
                 Title = addMovieEntryViewModel.Title,
                 Date = addMovieEntryViewModel.Date,
                 NumRating = addMovieEntryViewModel.NumRating
-            };
+            };*/
 
             if (ModelState.IsValid)
 			{
-				context.Entry(aMovie).State = EntityState.Modified;
+				context.Entry(addMovieEntryViewModel).State = EntityState.Modified;
 				await context.SaveChangesAsync();
 				return Redirect("Index");
 			}
 
-			return View(aMovie);
+			return View(addMovieEntryViewModel);
 		}
 
 		/*[HttpGet]
@@ -146,7 +168,7 @@ namespace LaunchCodeCapstone.Controllers
 			return View(aMovie);
 		}*/
 
-		//[HttpDelete]
+	/*	//[HttpDelete]
 		[HttpPost]
 		//[Route("/Delete")]
 
@@ -161,38 +183,54 @@ namespace LaunchCodeCapstone.Controllers
 			
 			//var entry = await context.MovieEntries.FindAsync(addMovieEntryViewModel.MovieEntryId);
 
-			/*if (entry != null)
+			*//*if (entry != null)
 			{
                 context.MovieEntries.Remove(entry);
 				
-			}*/
+			}*//*
             await context.SaveChangesAsync();
             return RedirectToAction("Index");
-		}
-
-
-
-       /* [HttpDelete]
-        [Route("/Delete")]
-        public async Task<IActionResult> Delete(int[] movieEntryIDs)
-		{
-			foreach(int movieEntryId in movieEntryIDs)
-			{
-				MovieEntry aMovie = await context.MovieEntries.FindAsync(movieEntryId);
-				context.MovieEntries.Remove(aMovie);
-		
-			}
-
-           await context.SaveChangesAsync();
-			Console.WriteLine("Item deleted.");
-           return View();
 		}*/
 
-		//public IActionResult SetRating(AddMovieEntryViewModel addMovieEntryViewModel)
-		//{
-		//	MovieEntry rating = new AddMovieEntryViewModel;
+
+		[HttpDelete]
+
+		public async Task<IActionResult> Delete(int id)
+		{
+			var movie = await context.MovieEntries.FirstOrDefaultAsync(x => x.MovieEntryId == id);
+
+			if (movie == null)
+			{
+				return NotFound();
+			}
+
+			context.MovieEntries.Remove(movie);
+			await context.SaveChangesAsync();
+
+			return RedirectToAction("Index");
+		}
+
+        /* [HttpDelete]
+         [Route("/Delete")]
+         public async Task<IActionResult> Delete(int[] movieEntryIDs)
+         {
+             foreach(int movieEntryId in movieEntryIDs)
+             {
+                 MovieEntry aMovie = await context.MovieEntries.FindAsync(movieEntryId);
+                 context.MovieEntries.Remove(aMovie);
+
+             }
+
+            await context.SaveChangesAsync();
+             Console.WriteLine("Item deleted.");
+            return View();
+         }*/
+
+        //public IActionResult SetRating(AddMovieEntryViewModel addMovieEntryViewModel)
+        //{
+        //	MovieEntry rating = new AddMovieEntryViewModel;
 
 
-		//}
-	}
+        //}
+    }
 }

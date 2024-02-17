@@ -19,9 +19,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 //user roles db context
-builder.Services.AddDbContext<UserRolesDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserRolesDbContext>();
+//builder.Services.AddDbContext<UserRolesDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserRolesDbContext>();
 
 //this is for the movie review db context
 builder.Services.AddDbContext<ReviewDbContext>(options =>

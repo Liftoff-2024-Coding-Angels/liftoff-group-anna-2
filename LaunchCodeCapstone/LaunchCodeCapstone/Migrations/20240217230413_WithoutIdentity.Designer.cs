@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LaunchCodeCapstone.Migrations
 {
     [DbContext(typeof(ReviewDbContext))]
-    [Migration("20240123235422_Initial")]
-    partial class Initial
+    [Migration("20240217230413_WithoutIdentity")]
+    partial class WithoutIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,25 @@ namespace LaunchCodeCapstone.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.LikeReview", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ReviewId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("LikeReview");
+                });
 
             modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.Review", b =>
                 {
@@ -69,6 +88,32 @@ namespace LaunchCodeCapstone.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.ReviewComments", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ReviewId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("ReviewComments");
+                });
+
             modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.Tag", b =>
                 {
                     b.Property<Guid>("Id")
@@ -103,6 +148,24 @@ namespace LaunchCodeCapstone.Migrations
                     b.ToTable("ReviewTag");
                 });
 
+            modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.LikeReview", b =>
+                {
+                    b.HasOne("LaunchCodeCapstone.Models.BlogStyleReview.Review", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.ReviewComments", b =>
+                {
+                    b.HasOne("LaunchCodeCapstone.Models.BlogStyleReview.Review", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ReviewTag", b =>
                 {
                     b.HasOne("LaunchCodeCapstone.Models.BlogStyleReview.Review", null)
@@ -116,6 +179,13 @@ namespace LaunchCodeCapstone.Migrations
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.Review", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }

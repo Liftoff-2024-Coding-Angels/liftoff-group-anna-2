@@ -8,12 +8,13 @@ using LaunchCodeCapstone.Models;
 using LaunchCodeCapstone.Data;
 using LaunchCodeCapstone.ViewModels;
 using DM.MovieApi.MovieDb.Movies;
-//using Microsoft.AspNetCore.Cors;
+
 
 namespace LaunchCodeCapstone.Controllers
 {
-	//[EnableCors("MyAllowedOrigins")]
-	public class MovieEntryController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class MovieEntryController : Controller
 	{
 
 		private MovieDbContext context;
@@ -25,7 +26,7 @@ namespace LaunchCodeCapstone.Controllers
 
 
 		[HttpGet]
-		[ActionName("Index")]
+		[Route("/Index")]
 		public IActionResult Index()
 		{
 			List<MovieEntry> movies = context.MovieEntries?.ToList();
@@ -33,7 +34,7 @@ namespace LaunchCodeCapstone.Controllers
 		}
 
 		[HttpGet]
-		[ActionName("Create")]
+		[Route("/Create")]
 		public IActionResult Create()
 		{
 			AddMovieEntryViewModel addMovieEntryViewModel = new AddMovieEntryViewModel();
@@ -42,7 +43,7 @@ namespace LaunchCodeCapstone.Controllers
 		}
 
 		[HttpPost]
-		//[Route("/Create")]
+		[Route("/Create")]
 		public async Task<IActionResult> Create(AddMovieEntryViewModel addMovieEntryViewModel)
 		{
 			Console.WriteLine("before if");

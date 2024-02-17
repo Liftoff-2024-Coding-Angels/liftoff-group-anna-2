@@ -3,7 +3,25 @@ using LaunchCodeCapstone.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+//CORS
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+/////
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+//CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(MyAllowSpecificOrigins,
+                          policy =>
+                          {
+                              policy.WithOrigins()
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+                          });
+});
+/////
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -45,6 +63,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+//CORS
+app.UseCors(MyAllowSpecificOrigins);
+/////
+
 
 app.UseAuthentication();
 app.UseAuthorization();

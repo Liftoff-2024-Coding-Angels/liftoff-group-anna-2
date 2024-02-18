@@ -1,5 +1,6 @@
 using DM.MovieApi;
 using LaunchCodeCapstone.Data;
+using LaunchCodeCapstone.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,8 @@ var configuration = builder.Configuration;
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+//this is for the application db context
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -20,9 +23,30 @@ builder.Services.AddDbContext<MovieDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+//this is for the identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+
+//user roles db context
+//builder.Services.AddDbContext<UserRolesDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserRolesDbContext>();
+
+//this is for the movie review db context
+builder.Services.AddDbContext<ReviewDbContext>(options =>
+    options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+//this is for the review repository
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+//this is for the image repository (uploading images in a review)
+builder.Services.AddScoped<IImageRepository, CloudinaryImagesRepository>();
+//likes repository
+builder.Services.AddScoped<ILikeReviewRepository, LikeReviewRepository>();
+//comments repository
+builder.Services.AddScoped<IReviewCommentsRepository, ReviewCommentsRepository>();
 
 builder.Services.AddDbContext<MovieDbContext>(options => 
 options.UseSqlServer(connectionString));
@@ -74,7 +98,6 @@ services.AddAuthentication().AddGoogle(googleOptions =>
     googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
 });
- 
 
 var app = builder.Build();
 

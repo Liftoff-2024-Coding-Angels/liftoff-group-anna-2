@@ -66,31 +66,28 @@ namespace LaunchCodeCapstone.Controllers
         }
 
 
-				/*
-				[HttpGet]
-				[Route("/Edit/{id}")]
-				public async Task<IActionResult> Edit (int id)
-				{
-					var aMovie = await context.MovieEntries.Where(m => m.MovieEntryId == id).FirstOrDefaultAsync();
-					if (aMovie == null)
-					{
-						return NotFound();
-					}
+    
+
+        [HttpGet]
+        [ActionName("Read")]
+        public async Task<IActionResult> Read()
+        {
+            var movies = await context.MovieEntries?.ToListAsync();
+            return View(movies);
+        }
 
 
-					return View(aMovie);
-				}*/
 
-
-		[HttpGet]
-		[Route("/Edit")]
+        [HttpGet]
+		[Route("/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
-			var movie = await context.MovieEntries.FirstOrDefaultAsync(x => x.MovieEntryId == id);
+			//var movie = await context.MovieEntries.FindAsync(MovieEntryId);
+           var movie = await context.MovieEntries.FirstOrDefaultAsync(x => x.MovieEntryId == id);
 
-			if (movie != null)
+            if (movie != null)
 			{
-				var editMovie = new MovieEntry
+				var editMovie = new AddMovieEntryViewModel
 				{
                     MovieEntryId = movie.MovieEntryId,
 					Title = movie.Title,
@@ -107,23 +104,52 @@ namespace LaunchCodeCapstone.Controllers
 
 
 		[HttpPost]
+        [Route("/Edit/{id}")]
         public async Task<IActionResult> Edit(AddMovieEntryViewModel addMovieEntryViewModel)
 		{
-         /*   MovieEntry aMovie = new MovieEntry
-            {
-                Title = addMovieEntryViewModel.Title,
-                Date = addMovieEntryViewModel.Date,
-                NumRating = addMovieEntryViewModel.NumRating
-            };*/
-
-            if (ModelState.IsValid)
+			var movie = new MovieEntry
 			{
-				context.Entry(addMovieEntryViewModel).State = EntityState.Modified;
-				await context.SaveChangesAsync();
-				return Redirect("Index");
+				MovieEntryId = addMovieEntryViewModel.MovieEntryId,
+				Title = addMovieEntryViewModel.Title,
+				Date = addMovieEntryViewModel.Date,
+				NumRating = addMovieEntryViewModel.NumRating
+			};
+
+			var existingMovie = await context.MovieEntries.FindAsync(movie.MovieEntryId);
+
+			if(existingMovie != null)
+			{
+				existingMovie.Title = movie.Title;
+				existingMovie.Date = movie.Date;
+				existingMovie.NumRating = movie.NumRating;
 			}
 
-			return View(addMovieEntryViewModel);
+			await context.SaveChangesAsync();
+
+			return RedirectToAction("Read");
+
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> Delete (AddMovieEntryViewModel addMovieEntryViewModel)
+		{
+			var movie = new MovieEntry
+			{
+				MovieEntryId = addMovieEntryViewModel.MovieEntryId,
+				Title = addMovieEntryViewModel.Title,
+				Date = addMovieEntryViewModel.Date,
+				NumRating = addMovieEntryViewModel.NumRating
+			};
+
+			var deletedMovie = await context.MovieEntries.FindAsync(movie.MovieEntryId);
+
+			if(deletedMovie != null)
+			{
+				context.MovieEntries.Remove(deletedMovie);
+				await context.SaveChangesAsync();
+			};
+
+			return RedirectToAction("Read");
 		}
 
 		/*[HttpGet]
@@ -193,11 +219,12 @@ namespace LaunchCodeCapstone.Controllers
 		}*/
 
 
-		[HttpDelete]
-
+	/*	[HttpPost]
+		//[ActionName("/Delete/{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			var movie = await context.MovieEntries.FirstOrDefaultAsync(x => x.MovieEntryId == id);
+
 
 			if (movie == null)
 			{
@@ -207,8 +234,8 @@ namespace LaunchCodeCapstone.Controllers
 			context.MovieEntries.Remove(movie);
 			await context.SaveChangesAsync();
 
-			return RedirectToAction("Index");
-		}
+			return RedirectToAction("Read");
+		}*/
 
         /* [HttpDelete]
          [Route("/Delete")]

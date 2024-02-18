@@ -1,16 +1,23 @@
-﻿namespace LaunchCodeCapstone.Models
+using System;
+namespace LaunchCodeCapstone.Models
 {
-    public class Rating
-    {
-        public int Id { get; set; }
-        public int StarRating { get; set; }
+	public class Rating
+	{
 
+		public int RatingId { get; set; }
+		public int NumStars { get; set; }
 
-        public Movie Movie { get; set; }
-        public List<Movie> Movies { get; set; }
-        public int MovieId { get; set; }
-        public Rating()
+		public MovieEntry? MovieEntry { get; set; }
+		public int MovieEntryId { get; set; }
+
+        public Rating(int numStars, int movieEntryId)
         {
+            NumStars = numStars;
+            MovieEntryId = movieEntryId;
         }
-    }
+
+        public Rating()
+		{
+		}
+	}
 }

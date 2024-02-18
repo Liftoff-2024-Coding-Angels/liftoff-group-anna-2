@@ -93,25 +93,51 @@ namespace LaunchCodeCapstone.Controllers
         }
 
 
+
+
         public async Task<IActionResult> WatchProviderAsync(int movieId)
         {
+            if (movieId.Equals(null))
+            {
+                return View("");
+            }
+            else
+            {
 
-            var options = new RestClientOptions($"https://api.themoviedb.org/3/movie/{movieId}/watch/providers");
+                var options = new RestClientOptions($"https://api.themoviedb.org/3/movie/{movieId}/watch/providers");
 
-            var client = new RestClient(options);
+                var client = new RestClient(options);
 
-            var request = new RestRequest("");
+                var request = new RestRequest("");
 
-            //Do i need if I have in Program file?
-            //request.AddHeader("accept", "application/json");
-            //request.AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjkyOWMxY2Q5MTgzOWNkYWU5MzZhNjEzMmNmNGUyNyIsInN1YiI6IjY1YWMwMjliYWQ1OWI1MDBlYjc4NTFkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TKw26QnxggH6qX2MFMraVlrRetVSCODmGMBX_L6WTJw");
+                //Do i need if I have in Program file?
+                request.AddHeader("accept", "application/json");
+                request.AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjkyOWMxY2Q5MTgzOWNkYWU5MzZhNjEzMmNmNGUyNyIsInN1YiI6IjY1YWMwMjliYWQ1OWI1MDBlYjc4NTFkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TKw26QnxggH6qX2MFMraVlrRetVSCODmGMBX_L6WTJw");
 
-            var response = await client.GetAsync(request);
+                var response = await client.GetAsync(request);
+                
 
-            return View(/*WatchListView?*/"{movieId}", response.Content);
+                return View("WatchProvider", response.Content);
+
+            //    List<RestClientOptions> ProviderInfo = new List<RestClientOptions>();
+            //    var response = await client.GetAsync(request);
+            //    foreach (RestClientOptions WatchListP in response.Content)
+            //    {
+            //        ProviderInfo.Add(WatchListP);
+
+            //        //Don't need extra code if
+            //        //defined in view?
+            //        //info.Title.ToList();
+            //        //info.Overview.ToList();
+
+            //    };
+
+            //    return View("WatchProvider", response.Content);
+
+            //    //return View("{0}", response.Content);
+            //}
+
         }
-
-
 
         //[HttpPost]
         //public IActionResult Search(string searchTerm)

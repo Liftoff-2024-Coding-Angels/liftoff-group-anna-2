@@ -1,0 +1,43 @@
+@model LaunchCodeCapstone.ViewModels.AddMovieEntryViewModel
+
+<h1>Add New Movie</h1>
+
+<form asp-controller="MovieEntry" asp-action="Create" method="post">
+
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <label asp-for="Date">Date</label>
+        <input class="form-control" min="2023-01-01" value="2023-01-01" type="date" asp-for="Date" asp-format="{0:yyyy-MM-dd}" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <label asp-for="NumRating">Rating</label>
+        <input class="form-control" max="5" asp-for="NumRating" />
+        <span asp-validation-for="NumRating" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    @*<button type="submit" value="Add Movie" />*@
+    @*<input type="submit" value="Add Movie" />*@
+    <button id="Button" type="submit" name="submit" formmethod="post" class="btn btn-primary">Save</button>
+</form>
+
+<br />
+
+<a class="btn btn-secondary btn-sm" asp-controller="MovieEntry" asp-action="Index" asp-route-id="/Index">View Added Movies</a>
+
+
+@* \*asp-format="{0:yyyy-MM-dd}"*\
+asp-route-id="@Movie.MovieEntryId"
+*@

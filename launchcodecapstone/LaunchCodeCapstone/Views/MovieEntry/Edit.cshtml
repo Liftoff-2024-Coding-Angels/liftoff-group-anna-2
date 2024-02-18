@@ -1,0 +1,45 @@
+﻿@model LaunchCodeCapstone.ViewModels.AddMovieEntryViewModel
+
+<h1>Edit Movie</h1>
+
+       
+        <form asp-controller="MovieEntry" asp-action="Edit" asp-action="Delete" method="post">
+
+            <div class="form-group">
+                <label asp-for="MovieEntryId">Id</label>
+                <input asp-for="MovieEntryId" class="form-control" id="Id" readonly />
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Title">Title</label>
+                <input asp-for="Title" class="form-control" id ="title" type="text" readonly/>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <label asp-for="Date">New Date:</label>
+                <input class="form-control" min="2023-01-01" value="Date" type="date" asp-for="Date" id="date" asp-format="{0:yyyy-MM-dd}" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <label asp-for="NumRating">New Rating:</label>
+                <input class="form-control" max="5" asp-for="NumRating" />
+                <span asp-validation-for="NumRating" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <div>
+        <button type="submit" class=" btn btn-primary" asp-controller="MovieEntry" asp-action="Edit" formmethod="post">Save Edit</button>
+        <button type="submit" class="btn btn-danger" asp-controller="MovieEntry" asp-action="Delete" formmethod="post" onclick="return confirm('Are you sure?')">DELETE</button>
+            </div>
+        </form>
+
+<br />
+
+<a class="btn btn-primary" asp-controller="MovieEntry" asp-action="Create" role="button">Add New Movie</a>

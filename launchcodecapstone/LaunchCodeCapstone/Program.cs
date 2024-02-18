@@ -1,9 +1,15 @@
+using DM.MovieApi;
 using LaunchCodeCapstone.Data;
 using LaunchCodeCapstone.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using LaunchCodeCapstone.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -11,12 +17,17 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 //this is for the application db context
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<MovieDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //this is for the identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
 
 //user roles db context
 //builder.Services.AddDbContext<UserRolesDbContext>(options =>
@@ -37,8 +48,62 @@ builder.Services.AddScoped<ILikeReviewRepository, LikeReviewRepository>();
 //comments repository
 builder.Services.AddScoped<IReviewCommentsRepository, ReviewCommentsRepository>();
 
+builder.Services.AddDbContext<MovieDbContext>(options => 
+options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+
+//this sets the inactivity timeout to 2 days
+builder.Services.ConfigureApplicationCookie(o => {
+    o.ExpireTimeSpan = TimeSpan.FromDays(2);
+    o.SlidingExpiration = true;
+});
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+
+    // Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+
+    // User settings.
+    options.User.AllowedUserNameCharacters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = false;
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    // Cookie settings
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.SlidingExpiration = true;
+});
+
+
+services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
 
 var app = builder.Build();
+
+string bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZmFmYmI2NzU5NTJmNjZkODBlMWE1Y2MyM2FmN2VlMyIsInN1YiI6IjY1YjFiYzczNmVlY2VlMDE2MjMzZjRmYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vEJUScrm282EjN3PhWzDB2tvlUFPHHgPDIhlHU2ym1o";
+
+MovieDbFactory.RegisterSettings(bearerToken);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

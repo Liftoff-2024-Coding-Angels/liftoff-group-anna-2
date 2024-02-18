@@ -1,0 +1,34 @@
+@model List<LaunchCodeCapstone.Models.MovieEntry>
+
+<h1>Delete Movie</h1>
+
+
+@if (Model.Count == 0)
+{
+    <p>No Movies have been added yet!</p>
+}
+else
+{
+
+<form method="post" asp-controller="MovieEntry" asp-action="Delete">
+    @foreach (MovieEntry Movie in Model)
+    {
+        <div class="form-group">
+                <label asp-for="@Movie.Title">Title</label>
+                <input asp-for="@Movie.Title" class="form-control" id="title" type="text" readonly />      
+        </div>
+
+        <div class="form-group">
+                <label asp-for="@Movie.Date">Date Watched:</label>
+                <input asp-for="@Movie.Date" class="form-control" id="date" type="text" readonly />
+        </div>
+
+        <div class="form-group">
+                <label asp-for="@Movie.NumRating">Title</label>
+                <input asp-for="@Movie.NumRating" class="form-control" id="rating" type="text" readonly />
+        </div>
+    }
+
+    <input type="submit" value="DELETE" class="btn btn-danger" >
+</form>
+}

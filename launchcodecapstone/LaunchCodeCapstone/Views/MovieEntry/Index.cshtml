@@ -1,0 +1,39 @@
+﻿@model List<LaunchCodeCapstone.Models.MovieEntry>
+
+<h1>List of Movies</h1>
+
+@if (Model.Count == 0)
+{
+    <p>No Movies have been added yet!</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Movie</th>
+            <th>Date Watched</th>
+            <th>Rating</th>
+            <th>Edit Movie</th>
+            <th>Delete Movie</th>
+        </tr>
+        @foreach (MovieEntry Movie in Model)
+        {
+
+            <tr>
+                <td>@Movie.MovieEntryId</td>
+                <td><a asp-controller="Employer" asp-action="About" asp-route-id="@Movie.MovieEntryId">@Movie.Title</a></td>
+                <td>@Movie.Date</td>
+                <td>@Movie.NumRating</td>
+                <td><a asp-controller="MovieEntry" asp-action="Edit" asp-route-id="/Edit">Edit</a></td>
+                @*<td><a asp-controller="MovieEntry" asp-action="Delete" asp-route-id="/Delete">Delete</a></td>*@
+                <td><button type="submit" value="DELETE" class=" btn btn-danger" asp-controller="MovieEntry" asp-action="Delete" onclick="return confirm('Are you sure?')">Delete</button></td>
+            </tr>
+
+       
+        }
+    </table>
+}
+
+
+<a class="btn btn-primary" asp-controller="MovieEntry" asp-action="Create" role="button">Add New Movie</a>

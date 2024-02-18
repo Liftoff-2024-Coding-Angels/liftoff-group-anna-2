@@ -14,13 +14,21 @@ else
     @foreach (MovieEntry Movie in Model)
     {
         <div class="form-group">
-            <label>
-                <span>@Movie.Title</span>
-                <input type="checkbox" name="MovieEntryIds" value="@Movie.MovieEntryId" class="form-control">
-            </label>
+                <label asp-for="@Movie.Title">Title</label>
+                <input asp-for="@Movie.Title" class="form-control" id="title" type="text" readonly />      
+        </div>
+
+        <div class="form-group">
+                <label asp-for="@Movie.Date">Date Watched:</label>
+                <input asp-for="@Movie.Date" class="form-control" id="date" type="text" readonly />
+        </div>
+
+        <div class="form-group">
+                <label asp-for="@Movie.NumRating">Title</label>
+                <input asp-for="@Movie.NumRating" class="form-control" id="rating" type="text" readonly />
         </div>
     }
 
-    <input type="submit" value="Delete Selected Movies" class="btn btn-danger">
+    <input type="submit" value="DELETE" class="btn btn-danger" >
 </form>
 }

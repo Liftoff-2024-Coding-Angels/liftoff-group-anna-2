@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace LaunchCodeCapstone.Models
 {
 	public class MovieEntry
 	{
-		public int? MovieEntryId { get; set; }
+		[Key]
+		public int MovieEntryId { get; set; }
 
 		public string Title { get; set; }
 
@@ -13,8 +16,9 @@ namespace LaunchCodeCapstone.Models
         //public ICollection<Rating> Ratings { get; set; }
 
 
-        public MovieEntry(string title, DateTime date, int numRating)
+        public MovieEntry(int movieEntryId, string title, DateTime date, int numRating)
 		{
+			MovieEntryId = movieEntryId;
 			Title = title;
 			Date = date;
 			NumRating = numRating;

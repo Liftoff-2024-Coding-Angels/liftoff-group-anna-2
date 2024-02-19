@@ -1,9 +1,11 @@
 using DM.MovieApi;
+using DM.MovieApi.MovieDb.Movies;
 using LaunchCodeCapstone.Data;
 using LaunchCodeCapstone.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 using LaunchCodeCapstone.Services;
 using LaunchCodeCapstone.Repositories;
 
@@ -13,10 +15,10 @@ var configuration = builder.Configuration;
 
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-//this is for the application db context
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<MovieDbContext>(options =>
+
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<MovieDbContext>(options =>
@@ -26,7 +28,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //this is for the identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<MovieDbContext>();
 builder.Services.AddControllersWithViews();
 
 //this is for the movie review db context
@@ -95,11 +97,16 @@ services.AddAuthentication().AddGoogle(googleOptions =>
 
 var app = builder.Build();
 
-string bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZmFmYmI2NzU5NTJmNjZkODBlMWE1Y2MyM2FmN2VlMyIsInN1YiI6IjY1YjFiYzczNmVlY2VlMDE2MjMzZjRmYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vEJUScrm282EjN3PhWzDB2tvlUFPHHgPDIhlHU2ym1o";
+string bearerToken = ("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjkyOWMxY2Q5MTgzOWNkYWU5MzZhNjEzMmNmNGUyNyIsInN1YiI6IjY1YWMwMjliYWQ1OWI1MDBlYjc4NTFkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TKw26QnxggH6qX2MFMraVlrRetVSCODmGMBX_L6WTJw");
 
 MovieDbFactory.RegisterSettings(bearerToken);
 
-// Configure the HTTP request pipeline.
+// as the factory returns a Lazy<T> instance, just grab the Value from the Lazy<T>
+// and assign to a local variable.
+IApiMovieRequest movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
+
+// Configure the HTTP request pipeline.w
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();

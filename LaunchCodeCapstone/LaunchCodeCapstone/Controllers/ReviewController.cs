@@ -19,7 +19,7 @@ namespace LaunchCodeCapstone.Controllers
             this.reviewRepository = reviewRepository;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [ActionName("AddReview")]
 
@@ -64,7 +64,7 @@ namespace LaunchCodeCapstone.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         [HttpGet]
         [ActionName("EditReview")]
         //id in param so that it edits the correct one

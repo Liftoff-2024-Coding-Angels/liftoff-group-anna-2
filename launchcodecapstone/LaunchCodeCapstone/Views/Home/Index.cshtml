@@ -1,4 +1,7 @@
 ﻿@model List<LaunchCodeCapstone.Models.BlogStyleReview.Review>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
 
 @{
     ViewData["Title"] = "Home Page";
@@ -29,28 +32,31 @@
         <div class="col-6">
             @if (Model != null && Model.Any())
             {
-                foreach (var review in Model)
+                @if (signInManager.IsSignedIn(User))
                 {
-                    <div class="mb-5 bg-light box-shadow">
-                        <img src="@review.FeaturedImageUrl"
-                             alt="@review.Heading"
-                             class="mb-2 d-block img-fluid">
+                    foreach (var review in Model)
+                    {
+                        <div class="mb-5 bg-light box-shadow">
+                            <img src="@review.FeaturedImageUrl"
+                                 alt="@review.Heading"
+                                 class="mb-2 d-block img-fluid">
 
-                        <h2 class="mb-2">@review.Heading</h2>
-                        <p class="mb-4">
-                            Author: @review.Author
-                            <br />
-                            Published Date: @review.PublishedDate.ToShortDateString()
-                        </p>
-                        <p class="mb-4">
-                            @review.Description
-                        </p>
-                        <a class="btn btn-dark"
-                           asp-area=""
-                           asp-controller="DisplayReviews"
-                           asp-action="Index"
-                           asp-route-urlHandle="@review.UrlHandle">Read More</a>
-                    </div>
+                            <h2 class="mb-2">@review.Heading</h2>
+                            <p class="mb-4">
+                                Author: @review.Author
+                                <br />
+                                Published Date: @review.PublishedDate.ToShortDateString()
+                            </p>
+                            <p class="mb-4">
+                                @review.Description
+                            </p>
+                            <a class="btn btn-dark"
+                                asp-area=""
+                                asp-controller="DisplayReviews"
+                                asp-action="Index"
+                                asp-route-urlHandle="@review.UrlHandle">Read More</a>
+                        </div>
+                    }
                 }
             }
         </div>

@@ -1,7 +1,6 @@
 ﻿﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> signInManager
 @inject UserManager<IdentityUser> userManager
-@inject RoleManager<IdentityUser> roleManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +51,7 @@
                                 </ul>
                             </li>
                         }
+   
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>

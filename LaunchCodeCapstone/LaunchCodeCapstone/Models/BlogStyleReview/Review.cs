@@ -14,10 +14,7 @@
         public string Author { get; set; }
         public bool Visible { get; set; }
 
-        //sets many to many relationship between reviews and tags.
-        public ICollection<Tag> Tags { get; set; }
-
-        //nav property for likes
+        //nav property sets one to many relationship between reviews and the likes and comments 
         public ICollection<LikeReview> Likes { get; set; }
         public ICollection<ReviewComments> Comments { get; set; }
 

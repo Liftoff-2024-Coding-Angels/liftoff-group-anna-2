@@ -2,6 +2,7 @@
 @inject SignInManager<IdentityUser> signInManager
 @inject UserManager<IdentityUser> userManager
 @model LaunchCodeCapstone.Models.ViewModels.ReviewDetailsViewModel
+
 @{
     ViewData["Title"] = Model.Title;
 }
@@ -17,13 +18,23 @@
                 </div>
 
                 <div class="mb-3">
-                    @*                    i want this anchor tag with like icon to display only when signed in
-                *@                    <a od="likebtn" style="cursor: pointer;">
+                    @*i want this anchor tag with like icon to display only when signed in
+                    <a od="likebtn" style="cursor: pointer;"> *@
+                    @if(signInManager.IsSignedIn(User)){
+                            @if (Model.Liked)
+                            {
+                               <a style="cursor: pointer;">
+                                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a id="btnLike" style="cursor: pointer;">
+                                    <i class="bi bi-hand-thumbs-up"></i>
 
-                        <i class="bi bi-hand-thumbs-up"></i>
-
-                    </a>
-
+                                </a>
+                            }
+                    }
                     <span id="totalLikes">@Model.TotalLikes</span> Likes
                 </div>
 
@@ -32,7 +43,7 @@
                 <div class="mb-3 review-details-content">
                     @Html.Raw(Model.Content)
                 </div>
-
+@*                this is for the comments*@
                 <div class="card">
                     <div class="card-header">
                         <h5>Comments</h5>
@@ -40,35 +51,36 @@
                         {
                             <form method="post">
                                 <div class="mb-3">
-                                    <label class="form-label">Comment Description</label>
-                                    <input type="text" class="form-control" asp-for="CommentDescription"/>
+                                    <label class="form-label">Contribute to the Conversation:</label>
+                                    <input type="text" class="form-control" asp-for="Description" />
                                 </div>
 
                                 <div class="mb-3">
-                                    <button type="submit" class="btn btn-dark">Submmite</button>
-                                    <input type="hidden" asp-for="Id"/>
-                                    <input type="hidden" asp-for="UrlHandle"/>
+                                    <button type="submit" class="btn btn-dark">Submit</button>
+                                    <input type="hidden" asp-for="Id" />
+                                    <input type="hidden" asp-for="UrlHandle" />
                                 </div>
                             </form>
                         }
                     </div>
                     <div class="card-body">
-                        @if(Model.Comments != null && Model.Comments.Any())
+                        @if (Model.Comments != null && Model.Comments.Any())
                         {
+                            @*display the comments if there are any*@
                             foreach (var comment in Model.Comments)
                             {
                                 <div class="card mb-3">
                                     <div class="card-body">
                                         <div>
                                             @comment.Description
-                                        </div> 
+                                        </div>
                                         <div>
                                             <span class="text-secondary">@comment.Username</span>
-                                            <span class="text-secondary">@comment.DateAdded</span>
+                                            <span class="text-secondary">@comment.DateAdded.ToShortDateString()</span>
                                         </div>
                                     </div>
                                 </div>
-                            }                           
+                            }
                         }
                     </div>
                 </div>
@@ -81,20 +93,22 @@
     </div>
 </div>
 
+@*//this script handles the liking of reviews*@
 @section Scripts{
     <script>
-        const likebtnElement = document.getElementById('likebtn');
+        const likebtnElement = document.getElementById('btnLike');
         const totalLikeElement = document.getElementById('totalLikes');
 
         async function getTotalLikes() {
-            fetch('/api/likeReview/@Model.Id/totalLikes'), {
+            fetch('/api/likeReview/@Model.Id/totalLikes', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': '*/*'
                 }
-            }).then(data => data.json())
-                .then(result = totalLikeElement.innerHTML = result);
+            })
+                .then(data => data.json())
+                .then(result => totalLikeElement.innerHTML = result);
         }
 
         async function addLikeToReview() {
@@ -105,11 +119,12 @@
                     'Accept': '*/*'
                 },
                 body: JSON.stringify({
-                    reviewId: '@Model.Id', userId: '@userManager.GetUserId(User)'
+                    reviewId: '@Model.Id',
+                    userId: '@userManager.GetUserId(User)'
                 })
             }).then(() => {
-                likebtnElement.innterHTML = '<i class="bi bi-hand-thumbs-up-fill"></i>';
-                likebtnElement.removeEventListener('click', assLikeToReview);
+                likebtnElement.innerHTML = '<i class="bi bi-hand-thumbs-up-fill"></i>';
+                likebtnElement.removeEventListener('click', addLikeToReview);
                 getTotalLikes();
             });
         }

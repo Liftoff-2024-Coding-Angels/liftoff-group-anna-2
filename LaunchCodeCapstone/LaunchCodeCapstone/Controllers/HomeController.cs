@@ -1,6 +1,5 @@
 using LaunchCodeCapstone.Models;
 using LaunchCodeCapstone.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -30,6 +29,7 @@ namespace LaunchCodeCapstone.Controllers
         {
             return View();
         }
+
 
         public IActionResult Privacy()
         {

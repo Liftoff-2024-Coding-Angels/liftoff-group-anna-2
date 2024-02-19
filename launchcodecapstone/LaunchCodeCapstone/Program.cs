@@ -33,6 +33,8 @@ builder.Services.AddScoped<IImageRepository, CloudinaryImagesRepository>();
 builder.Services.AddScoped<ILikeReviewRepository, LikeReviewRepository>();
 //comments repository
 builder.Services.AddScoped<IReviewCommentsRepository, ReviewCommentsRepository>();
+//users repository
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);

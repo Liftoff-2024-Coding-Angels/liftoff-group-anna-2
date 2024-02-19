@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> signInManager
+=======
+﻿﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+>>>>>>> origin/Identity+Reviews
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +15,20 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LaunchCodeCapstone.styles.css" asp-append-version="true" />
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 @*    html editor*@
     <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>
+=======
+    @*bootstrap icons for html editory*@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    @*html editor*@
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>
+
+>>>>>>> origin/Identity+Reviews
 </head>
 <body>
     <header>
@@ -29,15 +44,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+<<<<<<< HEAD
 
 @*                        i want to adjust menu to only display the drop down when sign in
 *@                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">review things</a>
                             <ul class="dropdown-menu">
+=======
+                        @* i want to adjust menu to only display the drop down when sign in*@
+                        @if (signInManager.IsSignedIn(User))
+                        {
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Reviews Actions</a>
+                                <ul class="dropdown-menu">
+>>>>>>> origin/Identity+Reviews
                                     <li>
                                         <a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AddReview">Add A Review</a>
                                     </li>
 
+<<<<<<< HEAD
                                     @*  <li>
                                 <a class="dropdown-item" asp-area="" asp-controller="Tags" asp-action="AddTag">Add A Tag</a>
                                 </li>
@@ -51,8 +77,32 @@
                                     </li>
                             </ul>
                         </li>
+=======
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="ReviewsList">Show All Reviews</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="List">Show All Users</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+   
+>>>>>>> origin/Identity+Reviews
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MovieEntry" asp-action="Create">Add Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MovieEntry" asp-action="Delete">Delete Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MovieEntry" asp-action="Read">View Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MovieEntry" asp-action="Edit">Edit Movies</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

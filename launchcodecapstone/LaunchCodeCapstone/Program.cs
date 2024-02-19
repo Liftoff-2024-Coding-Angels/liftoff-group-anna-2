@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using LaunchCodeCapstone.Services;
+using LaunchCodeCapstone.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -28,18 +29,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-
-//user roles db context
-//builder.Services.AddDbContext<UserRolesDbContext>(options =>
-//    options.UseSqlServer(connectionString));
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserRolesDbContext>();
-
 //this is for the movie review db context
 builder.Services.AddDbContext<ReviewDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-//this is for the review repository
+//this is for the review repository (interface, it's implementation)
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 //this is for the image repository (uploading images in a review)
 builder.Services.AddScoped<IImageRepository, CloudinaryImagesRepository>();
@@ -47,10 +42,9 @@ builder.Services.AddScoped<IImageRepository, CloudinaryImagesRepository>();
 builder.Services.AddScoped<ILikeReviewRepository, LikeReviewRepository>();
 //comments repository
 builder.Services.AddScoped<IReviewCommentsRepository, ReviewCommentsRepository>();
+//users repository
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-builder.Services.AddDbContext<MovieDbContext>(options => 
-options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 

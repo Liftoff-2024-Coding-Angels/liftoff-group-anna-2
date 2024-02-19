@@ -111,7 +111,7 @@ namespace LaunchCodeCapstone.Controllers
                 };
                 await reviewCommentsRepository.AddAsync(reviewModel);
                 //creating new object equal to the url handle and redirecting them back to it so that they can see the review with their comment posted
-                return RedirectToAction("Index", "Reviews", new { urlHandle = reviewDetailsViewModel.UrlHandle });
+                return RedirectToAction("Index", "DisplayReviews", new { urlHandle = reviewDetailsViewModel.UrlHandle });
             }
             return View();
         }

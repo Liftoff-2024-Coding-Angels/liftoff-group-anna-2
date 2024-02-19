@@ -7,6 +7,7 @@ using SendGrid.Helpers.Mail;
 
 namespace LaunchCodeCapstone.Controllers
 {
+    //if you want to test the functionality of this, just comment out the authorize decoration and run. willl continue to work on it.
     [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {

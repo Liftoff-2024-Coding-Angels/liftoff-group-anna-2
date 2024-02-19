@@ -1,4 +1,7 @@
 ﻿@model List<LaunchCodeCapstone.Models.BlogStyleReview.Review>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> userManager
+@inject SignInManager<IdentityUser> signInManager
 
 @{
 }
@@ -16,6 +19,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Heading</th>
+                    <th>Edit</th>
 @*                    <th>Title</th>
                     <th>Content</th>
                     <th>Description</th>
@@ -41,9 +45,13 @@
                         <td>@review.PublishedDate </td>
                         <td> @review.Author</td>
                         <td> @review.Visible</td>*@
-                        <td>
-                           <a asp-area="" asp-controller="Reviews" asp-action="EditReview" asp-route-id="@review.Id">Edit</a>
-                        </td>
+                        @if (review.Author == userManager.GetUserName(User))
+                        {
+                            <td>
+                                <a asp-area="" asp-controller="Reviews" asp-action="EditReview" asp-route-id="@review.Id">Edit</a>
+                            </td>
+                        }
+
 
                         @*<td>
                             <a asp-area="" asp-controller="Reviews" asp-action="DeleteReview" asp-route-id="@review.Id">Delete</a>

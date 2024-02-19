@@ -5,6 +5,10 @@ using LaunchCodeCapstone.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
+
+
 
 namespace LaunchCodeCapstone.Controllers
 {
@@ -12,11 +16,17 @@ namespace LaunchCodeCapstone.Controllers
     {
         private readonly ReviewDbContext reviewDbContext;
         private readonly IReviewRepository reviewRepository;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public ReviewsController(IReviewRepository reviewRepository)//ReviewDbContext reviewDbContext)
+
+        public ReviewsController(IReviewRepository reviewRepository,
+                        UserManager<IdentityUser> userManager)//ReviewDbContext reviewDbContext)
         {
             //this.reviewDbContext = reviewDbContext;
             this.reviewRepository = reviewRepository;
+            this.userManager = userManager;
+
+
         }
 
         //[Authorize]
@@ -42,7 +52,7 @@ namespace LaunchCodeCapstone.Controllers
                 FeaturedImageUrl = addReviewRequest.FeaturedImageUrl,
                 UrlHandle = addReviewRequest.UrlHandle,
                 PublishedDate = addReviewRequest.PublishedDate,
-                Author = addReviewRequest.Author,
+                Author = userManager.GetUserName(User),
                 Visible = addReviewRequest.Visible
             };
 
@@ -108,7 +118,7 @@ namespace LaunchCodeCapstone.Controllers
                 FeaturedImageUrl = editReviewRequest.FeaturedImageUrl,
                 UrlHandle = editReviewRequest.UrlHandle,
                 PublishedDate = editReviewRequest.PublishedDate,
-                Author = editReviewRequest.Author,
+                Author =  editReviewRequest.Author,
                 Visible = editReviewRequest.Visible
             };
             //submitting the info to the repo to update

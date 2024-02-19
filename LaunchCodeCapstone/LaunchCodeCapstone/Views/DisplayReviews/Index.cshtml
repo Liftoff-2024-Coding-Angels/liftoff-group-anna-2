@@ -41,7 +41,7 @@
                 <div class="mb-3 review-details-content">
                     @Html.Raw(Model.Content)
                 </div>
-
+@*                this is for the comments*@
                 <div class="card">
                     <div class="card-header">
                         <h5>Comments</h5>
@@ -49,12 +49,12 @@
                         {
                             <form method="post">
                                 <div class="mb-3">
-                                    <label class="form-label">Comment Description</label>
-                                    <input type="text" class="form-control" asp-for="CommentDescription" />
+                                    <label class="form-label">Contribute o the Conversation:</label>
+                                    <input type="text" class="form-control" asp-for="Description" />
                                 </div>
 
                                 <div class="mb-3">
-                                    <button type="submit" class="btn btn-dark">Submmite</button>
+                                    <button type="submit" class="btn btn-dark">Submit</button>
                                     <input type="hidden" asp-for="Id" />
                                     <input type="hidden" asp-for="UrlHandle" />
                                 </div>
@@ -64,6 +64,7 @@
                     <div class="card-body">
                         @if (Model.Comments != null && Model.Comments.Any())
                         {
+                            @*display the comments if there are any*@
                             foreach (var comment in Model.Comments)
                             {
                                 <div class="card mb-3">
@@ -73,7 +74,7 @@
                                         </div>
                                         <div>
                                             <span class="text-secondary">@comment.Username</span>
-                                            <span class="text-secondary">@comment.DateAdded</span>
+                                            <span class="text-secondary">@comment.DateAdded.ToShortDateString()</span>
                                         </div>
                                     </div>
                                 </div>

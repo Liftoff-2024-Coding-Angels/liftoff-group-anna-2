@@ -46,32 +46,33 @@ namespace LaunchCodeCapstone.Controllers
                 {
                     //getting the likes for this review for this user
                     var likesForReview = await likeReviewRepository.GetLikesForReviewForUser(review.Id);
-                   //check if the user has already like this particular review (check if their user id is in the above list)
+                    //check if the user has already like this particular review (check if their user id is in the above list)
                     var userId = userManager.GetUserId(User);
                     if (userId != null)
                     {
                         var likeFromUserId = likesForReview.FirstOrDefault(x => x.UserId == Guid.Parse(userId));
-                       //if they liked, change liked boolean to true
-                       liked = likeFromUserId != null;
+                        //if they liked, change liked boolean to true
+                        liked = likeFromUserId != null;
                     }
                 }
 
 
                 //get comments for review
-                //var reviewCommentsModel = await reviewCommentsRepository.GetCommentsByReviewIdAsync(review.Id);
+                var reviewCommentsModel = await reviewCommentsRepository.GetCommentsByReviewIdAsync(review.Id);
 
-                //var reviewCommentsForView = new List<Models.BlogStyleReview.ReviewComments>();
+                var reviewCommentsForView = new List<Models.ViewModels.ReviewComments>();
 
-                //foreach (var reviewComment in reviewCommentsModel)
-                //{
-                //    //this needs reworking
-                //    //reviewCommentsForView.Add(new reviewComments)
-                //    //    {
-                //    //    Description = ReviewComments.Description,
-                //    //        DateAdded = reviewComment.DateAdded,
-                //    //        Username = await.userManager.FindByIdAsync(reviewComment.UserId.ToString())).UserName
-                //    //};
-                //}
+                foreach (var reviewComments in reviewCommentsModel)
+                {
+                    //this needs reworking
+                    reviewCommentsForView.Add(new Models.ViewModels.ReviewComments
+                    {
+                        Description = reviewComments.Description,
+                        DateAdded = reviewComments.DateAdded,
+                        Username = (await userManager.FindByIdAsync(reviewComments.UserId.ToString())).UserName
+                    
+                    });
+                }
                 reviewDetailsViewModel = new ReviewDetailsViewModel
                 {
                     Id = review.Id,
@@ -85,8 +86,8 @@ namespace LaunchCodeCapstone.Controllers
                     Author = review.Author,
                     Visible = review.Visible,
                     TotalLikes = totalLikes,
-                    Liked = liked
-                    //Comments = reviewCommentsForView
+                    Liked = liked,
+                    Comments = reviewCommentsForView
                 };
             }
             //passing the viewmodel to the view
@@ -97,21 +98,22 @@ namespace LaunchCodeCapstone.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(ReviewDetailsViewModel reviewDetailsViewModel)
         {
-            ///TODO
-            //if (SignInManager.IsSignedIn(User))
-            //{
-            var Model = new Models.BlogStyleReview.ReviewComments
+            if (signInManager.IsSignedIn(User))
             {
-                ReviewId = reviewDetailsViewModel.Id,
-                Description = reviewDetailsViewModel.Description,
-                //UserId = Guid.Parse(userManager.GetUserId(User)),
-                DateAdded = DateTime.Now
+                var reviewModel = new Models.BlogStyleReview.ReviewComments
+                {
+                    ReviewId = reviewDetailsViewModel.Id,
+                    Description = reviewDetailsViewModel.Description,
+                    //will want to reuse the below to assign author to user id maybe
+                    UserId = Guid.Parse(userManager.GetUserId(User)),
+                    DateAdded = DateTime.Now
 
-            };
-            await reviewCommentsRepository.AddAsync(Model);
-            return RedirectToAction("Index", "Reviews", new { urlHandle = reviewDetailsViewModel.UrlHandle });
-            //}
-            //return View();
+                };
+                await reviewCommentsRepository.AddAsync(reviewModel);
+                //creating new object equal to the url handle and redirecting them back to it so that they can see the review with their comment posted
+                return RedirectToAction("Index", "Reviews", new { urlHandle = reviewDetailsViewModel.UrlHandle });
+            }
+            return View();
         }
     }
 }

@@ -25,7 +25,7 @@ builder.Services.AddDbContext<ReviewDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-//this is for the review repository
+//this is for the review repository (interface, it's implementation)
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 //this is for the image repository (uploading images in a review)
 builder.Services.AddScoped<IImageRepository, CloudinaryImagesRepository>();

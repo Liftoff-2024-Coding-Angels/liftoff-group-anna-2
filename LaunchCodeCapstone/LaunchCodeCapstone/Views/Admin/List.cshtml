@@ -18,15 +18,24 @@
                         <th>Id</th>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>
+                           
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var user in Model.Users)
                     {
                         <tr>
-                            <th>@user.Id</th>
-                            <th>@user.Username</th>
-                            <th>@user.EmailAddress</th>
+                            <td>@user.Id</td>
+                            <td>@user.Username</td>
+                            <td>@user.EmailAddress</td>
+                            <td>
+                                <form method="post" asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id">
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>

@@ -1,6 +1,6 @@
 ﻿﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> signInManager
-
+@inject UserManager<IdentityUser> userManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,21 +32,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @* i want to adjust menu to only display the drop down when sign in*@
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">review things</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AddReview">Add A Review</a>
-                                </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
 
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="ReviewsList">Show All Reviews</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="List">Show All Users</a>
-                                </li>
-                            </ul>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">review things</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="AddReview">Add A Review</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="ReviewsList">Show All Reviews</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="List">Show All Users</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

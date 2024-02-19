@@ -20,6 +20,14 @@ namespace LaunchCodeCapstone.Repositories
             return likeReview;
         }
 
+        public async Task<IEnumerable<LikeReview>> GetLikesForReviewForUser(Guid ReviewId)
+        {
+            //throw new NotImplementedException();
+            //search the like table for the the like that matches the reviewid
+            return await reviewDbContext.LikeReview.Where(x => x.ReviewId == ReviewId).ToListAsync();
+            
+        }
+
         public async Task<int> GetTotalLikes(Guid reviewId)
         {
             return await reviewDbContext.LikeReview.CountAsync(x => x.ReviewId == reviewId);

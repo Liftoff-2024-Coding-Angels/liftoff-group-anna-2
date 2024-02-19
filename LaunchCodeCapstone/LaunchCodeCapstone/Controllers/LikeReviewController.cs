@@ -11,12 +11,13 @@ namespace LaunchCodeCapstone.Controllers
     public class LikeReviewController : ControllerBase
     {
         private readonly ILikeReviewRepository likeReviewRepository;
+
         public LikeReviewController(ILikeReviewRepository likeReviewRepository)
         {
             this.likeReviewRepository = likeReviewRepository;
         }
 
-        //this is triggered from javaascript
+        //this is triggered from javaascript body
 
         [HttpPost]
         [Route("Add")]

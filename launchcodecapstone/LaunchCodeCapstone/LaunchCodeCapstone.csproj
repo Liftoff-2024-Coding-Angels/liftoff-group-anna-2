@@ -24,9 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Models\ViewModels\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Views\DisplayReviews\" />
     <Folder Include="Views\Reviews\" />
   </ItemGroup>
 

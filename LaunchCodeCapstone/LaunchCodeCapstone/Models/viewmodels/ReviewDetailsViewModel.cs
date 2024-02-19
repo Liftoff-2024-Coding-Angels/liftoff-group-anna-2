@@ -1,6 +1,8 @@
-﻿namespace LaunchCodeCapstone.Models.BlogStyleReview
+﻿using LaunchCodeCapstone.Models.BlogStyleReview;
+
+namespace LaunchCodeCapstone.Models.ViewModels
 {
-    public class Review
+    public class ReviewDetailsViewModel
     {
         //guid is unique identifier
         public Guid Id { get; set; }
@@ -13,10 +15,11 @@
         public DateTime PublishedDate { get; set; }
         public string Author { get; set; }
         public bool Visible { get; set; }
+        public int TotalLikes { get; set; }
+        public bool Liked { get; set; }
+        public string CommentDescription { get; set; }
+        public IEnumerable<ReviewComments> Comments { get; set; }
 
-        //nav property sets one to many relationship between reviews and the likes and comments 
-        public ICollection<LikeReview> Likes { get; set; }
-        public ICollection<ReviewComments> Comments { get; set; }
 
     }
 }

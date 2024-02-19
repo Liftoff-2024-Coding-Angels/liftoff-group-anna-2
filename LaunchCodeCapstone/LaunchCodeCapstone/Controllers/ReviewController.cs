@@ -1,4 +1,4 @@
-﻿ususing LaunchCodeCapstone.Data;
+﻿using LaunchCodeCapstone.Data;
 using LaunchCodeCapstone.Models.BlogStyleReview;
 using LaunchCodeCapstone.Models.ViewModels;
 using LaunchCodeCapstone.Repositories;

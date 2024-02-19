@@ -12,9 +12,9 @@ namespace LaunchCodeCapstone.Data
 
         public DbSet<Review> Reviews { get; set; }
 
-        //public DbSet<LikeReview> LikeReview { get; set; }
+        public DbSet<LikeReview> LikeReview { get; set; }
 
-        //public DbSet<ReviewComments> ReviewComments { get; set; }
+        public DbSet<ReviewComments> ReviewComments { get; set; }
 
     }
 }

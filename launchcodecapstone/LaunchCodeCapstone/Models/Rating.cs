@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace LaunchCodeCapstone.Models
 {
 	public class Rating
@@ -21,4 +21,3 @@ namespace LaunchCodeCapstone.Models
 		}
 	}
 }
-

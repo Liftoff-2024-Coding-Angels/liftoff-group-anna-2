@@ -1,0 +1,26 @@
+﻿
+
+    <h1>Search for a movie! </h1>
+
+    @*below uses BeginForm library to route on submit the controller and action method*@
+@using (Html.BeginForm("Results", "Movie", FormMethod.Get))
+{
+        <div>
+        @Html.TextBox("title",null, new {Class = "form-control", placeholder = "Enter Movie Title"})  
+        </div>
+        
+        <input type="submit" value="Add Movie" />
+    
+    
+}
+<br />
+<h1>Search for watch Provider</h1>
+
+@using (Html.BeginForm("WatchProvider", "Movie", FormMethod.Get))
+{
+    <div>
+        @Html.TextBox("movieId", null, new { Class = "form-control", placeholder = "Enter Movie Id" })
+    </div>
+
+    <input type="submit" value="Where can I watch?" />
+}    

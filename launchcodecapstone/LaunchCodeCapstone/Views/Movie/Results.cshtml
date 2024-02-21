@@ -1,0 +1,47 @@
+﻿ @model List<DM.MovieApi.MovieDb.Movies.MovieInfo>
+
+<h1>Search for a movie! </h1>
+    <h1>Movies</h1>
+@* 
+below uses BeginForm library to route on submit the controller and action method
+@using (Html.BeginForm("Results", "Movie", FormMethod.Get))
+{
+    <div>
+        @Html.TextBox("title")
+    </div>
+
+    <input type="submit" value="Add Movie" />
+
+
+}
+
+    <br />
+
+@await Html.PartialAsync("_Results"){ *@
+
+
+@foreach (DM.MovieApi.MovieDb.Movies.MovieInfo movie in Model)
+{
+    
+            <table class="table">
+                <tr>                   
+                   <td>@movie.Title</td>
+                   <td>@movie.Overview</td>
+                   <td>@movie.ReleaseDate</td>
+                   <td>
+                    <img src="@movie.PosterPath" style="display: block; width: 300px;" />
+                   </td>
+                   <td>
+                @using (Html.BeginForm("AddBySearch", "Movie", new { id = @movie.Title }, FormMethod.Post))
+                {
+                    <button type="submit" data-bs-togle="modal" data-bs-target="#IdModal" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Add" id="@movie.Title">
+                        <i class="fas fa-trash"></i>
+                        Add
+                    </button>
+                }
+            <td>
+        </table>
+    }
+}
+
+    <p><a asp-controller="Movie" asp-action="Search">Find more movies</a></p>

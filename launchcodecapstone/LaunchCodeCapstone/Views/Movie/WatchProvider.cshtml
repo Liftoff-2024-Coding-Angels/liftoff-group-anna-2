@@ -1,0 +1,18 @@
+﻿
+@*
+   commenting out because causing prblems and not relevant to current efature
+   
+@model List<RestSharp.ContentType.Plain>;
+
+
+
+
+@using (Html.BeginForm("WatchProvider", "Movie", FormMethod.Get))
+{
+        <div>
+        @Html.TextBox("movieId",null, new {Class = "form-control", placeholder = "Enter Movie Id"})  
+        </div>
+
+        <input type="submit" value="Where can I watch?" />
+}    
+    *@

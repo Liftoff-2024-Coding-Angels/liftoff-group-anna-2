@@ -1,0 +1,69 @@
+﻿@model List<LaunchCodeCapstone.Models.BlogStyleReview.Review>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> userManager
+@inject SignInManager<IdentityUser> signInManager
+
+@{
+}
+
+
+<div>
+    <h1>All Reviews</h1>
+</div>
+
+<div class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Heading</th>
+                    <th>Edit</th>
+@*                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Description</th>
+                    <th>FeaturedImageUrl</th>
+                    <th>UrlHandle</th>
+                    <th>PublishedDate</th>
+                    <th>Author</th>
+                    <th>Visible</th>*@
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var review in Model)
+                {
+                    <tr>
+                        <td>@review.Id</td>
+                        <td>@review.Heading </td>
+ @*                       <td> @review.Title</td>
+                        <td> @review.Content</td>
+                        <td>@review.Description </td>
+                        <td> @review.FeaturedImageUrl</td>
+                        <td> @review.UrlHandle</td>
+                        <td>@review.PublishedDate </td>
+                        <td> @review.Author</td>
+                        <td> @review.Visible</td>*@
+                        @if (review.Author == userManager.GetUserName(User))
+                        {
+                            <td>
+                                <a asp-area="" asp-controller="Reviews" asp-action="EditReview" asp-route-id="@review.Id">Edit</a>
+                            </td>
+                        }
+
+
+                        @*<td>
+                            <a asp-area="" asp-controller="Reviews" asp-action="DeleteReview" asp-route-id="@review.Id">Delete</a>
+                        </td>*@
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p> No Reviews Found! </p>
+    }
+</div>

@@ -1,0 +1,28 @@
+﻿@model List<DM.MovieApi.MovieDb.Movies.MovieInfo>
+
+@*@model LaunchCodeCapstone.Models.WatchList.WatchList
+*@
+
+<h1>Movies</h1>
+<p><a asp-controller="WatchList" asp-action="Add">Add more movies</a></p>
+@foreach (DM.MovieApi.MovieDb.Movies.MovieInfo movie in Model)
+{
+    <table class="table">
+        <tr>
+
+            <td>@movie.Title</td>
+            <td>@movie.Overview</td>
+            <td>@movie.ReleaseDate</td>
+            <td><img src="@movie.PosterPath" id="featuredImageDisplay" style="display: block; width: 300px;" /></td>
+            <td>
+                @using (Html.BeginForm("AddBySearch", "WatchList", new { id = @movie.Title }, FormMethod.Post))
+                {
+                    <button type="submit" data-bs-togle="modal" data-bs-target="#IdModal" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Add" id="@movie.Title">
+                        <i class="fas fa-trash"></i>
+                        Add
+                    </button>
+                }
+            </td>
+        </tr>
+    </table>
+}

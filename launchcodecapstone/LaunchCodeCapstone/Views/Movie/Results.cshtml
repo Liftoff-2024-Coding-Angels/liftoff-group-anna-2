@@ -24,17 +24,24 @@ below uses BeginForm library to route on submit the controller and action method
 {
     
             <table class="table">
-                <tr>
-                   
+                <tr>                   
                    <td>@movie.Title</td>
                    <td>@movie.Overview</td>
                    <td>@movie.ReleaseDate</td>
-                   <td>@movie.PosterPath</td>
-        </tr>
-
+                   <td>
+                    <img src="@movie.PosterPath" style="display: block; width: 300px;" />
+                   </td>
+                   <td>
+                @using (Html.BeginForm("AddBySearch", "Movie", new { id = @movie.Title }, FormMethod.Post))
+                {
+                    <button type="submit" data-bs-togle="modal" data-bs-target="#IdModal" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Add" id="@movie.Title">
+                        <i class="fas fa-trash"></i>
+                        Add
+                    </button>
+                }
+            <td>
         </table>
     }
 }
 
-    <p><a asp-controller="Movie" asp-action="Search">Add more movies</a></p>
-
+    <p><a asp-controller="Movie" asp-action="Search">Find more movies</a></p>

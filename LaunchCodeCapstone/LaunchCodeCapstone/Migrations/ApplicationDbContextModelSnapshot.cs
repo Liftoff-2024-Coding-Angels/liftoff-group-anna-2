@@ -17,7 +17,7 @@ namespace LaunchCodeCapstone.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.27")
+                .HasAnnotation("ProductVersion", "6.0.26")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -166,15 +166,15 @@ namespace LaunchCodeCapstone.Migrations
                         {
                             Id = "408be4a1-f6ab-47e7-a035-4032256da7fa",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "55e97cb8-156a-4e22-8f0a-33b6316ad6fd",
+                            ConcurrencyStamp = "1e39ba54-91e5-4dc2-9fe7-95a237b2f7ca",
                             Email = "mendozacolonx@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN",
                             NormalizedUserName = "MENDOZACOLONX@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECclLkUATR7zmSk8Dk75ze+o41MK/Medjn5tyC4vjRCrYeZDlo1yZE46zI05m6fyow==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB0MLK306f8JYIP6nWclYOiq+O+7U769wG87NtBPz4LYQ75rj0L2JqB7V2f2RQZxXg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3cc9e364-a24d-4a17-816b-b1a475a14336",
+                            SecurityStamp = "7be9808c-2d97-459f-a5b6-8c05cb2082fa",
                             TwoFactorEnabled = false,
                             UserName = "superAdmin"
                         });

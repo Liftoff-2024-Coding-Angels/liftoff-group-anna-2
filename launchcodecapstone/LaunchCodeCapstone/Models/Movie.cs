@@ -24,6 +24,7 @@ namespace LaunchCodeCapstone.Models
         public Movie() 
         {
         }
+
     }
 
 

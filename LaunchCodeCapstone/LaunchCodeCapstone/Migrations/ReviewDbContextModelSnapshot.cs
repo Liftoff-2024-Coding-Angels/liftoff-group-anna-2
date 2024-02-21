@@ -17,7 +17,7 @@ namespace LaunchCodeCapstone.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.21")
+                .HasAnnotation("ProductVersion", "6.0.26")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -112,40 +112,6 @@ namespace LaunchCodeCapstone.Migrations
                     b.ToTable("ReviewComments");
                 });
 
-            modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.Tag", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("ReviewTag", b =>
-                {
-                    b.Property<Guid>("ReviewsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TagsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ReviewsId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("ReviewTag");
-                });
-
             modelBuilder.Entity("LaunchCodeCapstone.Models.BlogStyleReview.LikeReview", b =>
                 {
                     b.HasOne("LaunchCodeCapstone.Models.BlogStyleReview.Review", null)
@@ -160,21 +126,6 @@ namespace LaunchCodeCapstone.Migrations
                     b.HasOne("LaunchCodeCapstone.Models.BlogStyleReview.Review", null)
                         .WithMany("Comments")
                         .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ReviewTag", b =>
-                {
-                    b.HasOne("LaunchCodeCapstone.Models.BlogStyleReview.Review", null)
-                        .WithMany()
-                        .HasForeignKey("ReviewsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LaunchCodeCapstone.Models.BlogStyleReview.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

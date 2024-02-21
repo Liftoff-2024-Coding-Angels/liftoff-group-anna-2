@@ -15,15 +15,15 @@ var configuration = builder.Configuration;
 
 
 // Add services to the container.
-
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<MovieDbContext>(options =>
-
-    options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<MovieDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+//this is for the movie application db context
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //this is for the identity
@@ -36,6 +36,12 @@ builder.Services.AddDbContext<ReviewDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+////this is for the watchlist db context
+builder.Services.AddDbContext<WatchListDbContext>(options =>
+   options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+
 //this is for the review repository (interface, it's implementation)
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 //this is for the image repository (uploading images in a review)
@@ -46,6 +52,8 @@ builder.Services.AddScoped<ILikeReviewRepository, LikeReviewRepository>();
 builder.Services.AddScoped<IReviewCommentsRepository, ReviewCommentsRepository>();
 //users repository
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+//watchlist repository
+builder.Services.AddScoped<IWatchListRepository, WatchListRepository>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);

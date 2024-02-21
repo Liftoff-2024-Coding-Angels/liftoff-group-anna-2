@@ -6,9 +6,10 @@ namespace LaunchCodeCapstone.ViewModels
 {
 	public class AddMovieEntryViewModel
 	{
-        /*public int MovieEntryId { get; set; }*/
+		[Key]
+		public int MovieEntryId { get; set; }
 
-        [Required(ErrorMessage = "A movie title is required.")]
+		[Required(ErrorMessage = "A movie title is required.")]
         public string Title { get; set; }
 
 		[Required(ErrorMessage = "A date is required.")]

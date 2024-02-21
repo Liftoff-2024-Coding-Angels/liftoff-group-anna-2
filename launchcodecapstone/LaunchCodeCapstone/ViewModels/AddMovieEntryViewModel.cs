@@ -6,15 +6,18 @@ namespace LaunchCodeCapstone.ViewModels
 {
 	public class AddMovieEntryViewModel
 	{
-        public int MovieEntryId { get; set; }
+		[Key]
+		public int MovieEntryId { get; set; }
 
-        [Required(ErrorMessage = "A movie title is required.")]
+		[Required(ErrorMessage = "A movie title is required.")]
         public string Title { get; set; }
 
 		[Required(ErrorMessage = "A date is required.")]
-		public DateTime Date { get; set; }
+        [DataType(DataType.Date)] // Specify the DataType for Date
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Date { get; set; }
 
-		public int NumRating { get; set; }	
+        public int NumRating { get; set; }	
 
   //      [Required(ErrorMessage = "A rating is required.")]
 		//public List<int> Rating { get; set; }

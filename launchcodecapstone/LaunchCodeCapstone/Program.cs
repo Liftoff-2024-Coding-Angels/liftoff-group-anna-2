@@ -9,10 +9,28 @@ using System.Xml.Linq;
 using LaunchCodeCapstone.Services;
 using LaunchCodeCapstone.Repositories;
 
+//CORS
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+/////
+
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
+
+
+//CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(MyAllowSpecificOrigins,
+                          policy =>
+                          {
+                              policy.AllowAnyOrigin()
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+                          });
+});
+/////
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -130,6 +148,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+//CORS
+app.UseCors(MyAllowSpecificOrigins);
+/////
+
 
 app.UseAuthentication();
 app.UseAuthorization();

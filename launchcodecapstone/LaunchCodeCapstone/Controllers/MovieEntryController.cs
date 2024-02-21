@@ -166,31 +166,31 @@ namespace LaunchCodeCapstone.Controllers
 		}
 
 
-        [HttpPost]
-		public async Task<IActionResult> Delete(AddMovieEntryViewModel addMovieEntryViewModel)
-		{
-			var movie = new MovieEntry
-			{
-				MovieEntryId = addMovieEntryViewModel.MovieEntryId,
-				Title = addMovieEntryViewModel.Title,
-				Date = addMovieEntryViewModel.Date,
-				NumRating = addMovieEntryViewModel.NumRating
-			};
+		/*   [HttpPost]
+		   public async Task<IActionResult> Delete(AddMovieEntryViewModel addMovieEntryViewModel)
+		   {
+			   var movie = new MovieEntry
+			   {
+				   MovieEntryId = addMovieEntryViewModel.MovieEntryId,
+				   Title = addMovieEntryViewModel.Title,
+				   Date = addMovieEntryViewModel.Date,
+				   NumRating = addMovieEntryViewModel.NumRating
+			   };
 
-			var deletedMovie = await context.MovieEntries.FindAsync(movie.MovieEntryId);
+			   var deletedMovie = await context.MovieEntries.FindAsync(movie.MovieEntryId);
 
-			if (deletedMovie != null)
-			{
-				context.MovieEntries.Remove(deletedMovie);
-				await context.SaveChangesAsync();
-			};
+			   if (deletedMovie != null)
+			   {
+				   context.MovieEntries.Remove(deletedMovie);
+				   await context.SaveChangesAsync();
+			   };
 
-			return RedirectToAction("Read");
-		}
+			   return RedirectToAction("Read");
+		   }*/
 
 
 
-/*		[HttpDelete]
+		[HttpDelete]
 		[Route("/Delete/{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
@@ -206,10 +206,10 @@ namespace LaunchCodeCapstone.Controllers
 			await context.SaveChangesAsync();
 
 			return NoContent();
-			*//*return RedirectToAction("Read");*//*
+			//return RedirectToAction("Read");
 		}
-*/
 
 
-		}
+
 	}
+}

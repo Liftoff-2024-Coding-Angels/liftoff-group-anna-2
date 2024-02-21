@@ -50,61 +50,61 @@ namespace LaunchCodeCapstone.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SearchAPI(string title)
-        {
-            if (string.IsNullOrEmpty(title))
-            //validate searchTerm
-            {
-                TempData["Message"] = "Please provide Movie Title!";
-                return View("Search");
-            }
-            else
-            {
-                //adding
-                var movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
-                ApiSearchResponse<MovieInfo> response = await movieApi.SearchByTitleAsync(title);
+        //[HttpGet]
+        //public async Task<IActionResult> SearchAPI(string title)
+        //{
+        //    if (string.IsNullOrEmpty(title))
+        //    //validate searchTerm
+        //    {
+        //        TempData["Message"] = "Please provide Movie Title!";
+        //        return View("Search");
+        //    }
+        //    else
+        //    {
+        //        //adding
+        //        var movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
+        //        ApiSearchResponse<MovieInfo> response = await movieApi.SearchByTitleAsync(title);
 
-                //this is the code that's returning the list
-                List<MovieInfo> movieList = new List<MovieInfo>();
-                foreach (MovieInfo info in response.Results)
-                {
-                    movieList.Add(info);
-                };
-                return View(movieList);
-            }
-        }
+        //        //this is the code that's returning the list
+        //        List<MovieInfo> movieList = new List<MovieInfo>();
+        //        foreach (MovieInfo info in response.Results)
+        //        {
+        //            movieList.Add(info);
+        //        };
+        //        return View(movieList);
+        //    }
+        //}
 
-        //should this be get or post...
-        [HttpGet("{id}")]
-        public async Task<IActionResult> AddBySearch(int movieId)
-        {
-            var movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
+        ////should this be get or post...
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> AddBySearch(int movieId)
+        //{
+        //    var movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
 
-            ApiQueryResponse<Movie> response = await movieApi.FindByIdAsync(movieId);
+        //    ApiQueryResponse<Movie> response = await movieApi.FindByIdAsync(movieId);
 
-            Movie movie = response.Item;
+        //    Movie movie = response.Item;
 
-            var model = new WatchList
-            {
-                MovieTitle = movie.Title,
-                UserId = userManager.GetUserId(User)
-            };
-            await watchListRepository.AddAsync(model);
-            return RedirectToAction("List"); 
-        }
+        //    var watchList = new WatchList
+        //    {
+        //        MovieTitle = movie.Title,
+        //        UserId = userManager.GetUserId(User)
+        //    };
+        //    await watchListRepository.AddAsync(watchList);
+        //    return RedirectToAction("List"); 
+        //}
 
 
         [HttpPost]
         public async Task<IActionResult> Add(AddToWatchListVM addToWatchListVM)
         {
             //adding
-            var model = new WatchList
+            var watchList = new WatchList
             {
-                 MovieTitle = addToWatchListVM.MovieTitle,
-                 UserId = userManager.GetUserId(User)
+                MovieTitle = addToWatchListVM.MovieTitle,
+                UserId = userManager.GetUserId(User)
             };
-            await watchListRepository.AddAsync(model);
+            await watchListRepository.AddAsync(watchList);
             return RedirectToAction("List");
         }
 

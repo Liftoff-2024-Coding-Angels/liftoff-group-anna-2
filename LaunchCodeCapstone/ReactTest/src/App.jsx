@@ -13,14 +13,23 @@ function App() {
   
 
   return (
-    <>
-      {/* <StarRating />
-      <BarChart />
-      <DoughnutChart />
-      <LineChart /> */}
-      <MovieForm />
-      <MovieList />
-    </>
+    <div className="container">
+    <div className="header">
+      <h1>Frame Rate</h1>
+    </div>
+    <div className="content">
+      <div className="movieform-container">
+        <MovieForm />
+      </div>
+      <div className="movielist-container">
+        <MovieList />
+      </div>
+      <div className="graph-container">
+        <LineChart />
+        <BarChart />
+      </div>
+    </div>
+  </div>
   )
 }
 

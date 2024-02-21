@@ -1,0 +1,50 @@
+.movieList
+{
+    background-color:  #584B53;
+}
+
+.movieList_header
+{
+    text-align: center;
+}
+
+.movieList_block
+{
+    background-color: #9D5C63;
+    border: 1px solid #ccc;
+}
+
+.movieList_buttons
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    align-items: left;
+}
+
+.movieList_editButton
+{
+    align-items: center;
+    width: 50%;
+}
+  
+.movieList_deleteButton
+{
+    align-items: left;
+    text-align: center;
+
+    width: 50%;
+}
+
+.movieList_editButton:hover
+{
+    background-color: blue;
+    border: none;
+}
+  
+
+.movieList_deleteButton:hover
+{
+    background-color: red;
+    border: none;
+}

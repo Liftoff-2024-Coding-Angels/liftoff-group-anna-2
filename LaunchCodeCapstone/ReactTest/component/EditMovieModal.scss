@@ -1,0 +1,49 @@
+.editModal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; /* Ensure modal appears on top */
+  }
+  
+  
+  .editModal h2 {
+    margin-bottom: 10px;
+  }
+  
+  .editModal input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .editModal_buttons
+  {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    align-items: left;
+  }
+  
+  .editModal button:hover {
+    background-color: #0056b3;
+  }
+  
+  .editModal label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  

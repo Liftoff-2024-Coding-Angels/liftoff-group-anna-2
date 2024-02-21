@@ -1,0 +1,81 @@
+﻿@model LaunchCodeCapstone.Models.WatchList.WatchList
+
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> userManager
+@inject SignInManager<IdentityUser> signInManager
+
+@{
+}
+
+
+<div>
+    <h1>My Watch List</h1>
+</div>
+
+<h2>Add a Movie Manually Or by Search</h2>
+<div class="container py-5">
+
+    <div class="row">
+
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h3>Manual Add</h3>
+                <form method="post">
+                    <div class="col-md-10">
+
+                        <div class="col-md-10">
+                            <label class="form-label">Movie Title</label>
+                            <input type="text" class="form-control" id="<movieTitle" asp-for="MovieTitle" />
+                        </div>
+                        <div class="col-md-10">
+                            <label class="form-label">UserId</label>
+                            <input type="text" class="form-control" id="userId" asp-for="UserId" readonly />
+                        </div>
+                        <div class="col-md-10">
+                            <button type="Submit" class="btn btn-dark">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h3>Search Add</h3>
+@*                @using (Html.BeginForm("SearchAPI", "WatchList", FormMethod.Get))
+*@ 
+                @using (Html.BeginForm("Results", "Movie", FormMethod.Get))
+{
+                    <div class="col-md-10">
+                        @Html.TextBox("title",null, new {Class = "form-control", placeholder = "Enter Movie Title"})
+                    </div>
+
+                    <input type="submit" value="Search" />
+
+
+                }
+            </section>
+        </div>
+
+    </div>
+
+
+    @if (Model != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Title</td>
+                    <td>Overview</td>
+                </tr>
+            </thead>
+
+
+        </table>
+    }
+    else
+    {
+        <p> No Movies in List! </p>
+    }
+</div>

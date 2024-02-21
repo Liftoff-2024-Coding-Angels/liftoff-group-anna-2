@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using LaunchCodeCapstone.Models;
+using LaunchCodeCapstone.Models.BlogStyleReview;
+using LaunchCodeCapstone.Models.WatchList;
 
 namespace LaunchCodeCapstone.Data
 {
-    public class MovieDbContext : IdentityDbContext, DbContext
+    public class MovieDbContext : IdentityDbContext
     {
         public DbSet<Movie> Movies { get; set; }
         public DbSet<User> Users { get; set; }

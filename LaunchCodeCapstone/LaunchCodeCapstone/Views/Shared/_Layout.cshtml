@@ -35,7 +35,7 @@
                         @if (signInManager.IsSignedIn(User))
                         {
 
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">                               
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Reviews Actions</a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -45,22 +45,39 @@
                                     <li>
                                         <a class="dropdown-item" asp-area="" asp-controller="Reviews" asp-action="ReviewsList">Show All Reviews</a>
                                     </li>
-
+            
                                     <li>
                                         <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="List">Show All Users</a>
                                     </li>
                                 </ul>
                             </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Admin Actions</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="List">Show All Users</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">WatchList Actions</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="WatchList" asp-action="Add">Add</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="WatchList" asp-action="List">Show List</a>
+                                        </li>
+                                    </ul>
+                            </li>
+
                         }
    
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-
-                            </ul>
-                        </li>
-
-
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="MovieEntry" asp-action="Create">Add Movies</a>
                         </li>

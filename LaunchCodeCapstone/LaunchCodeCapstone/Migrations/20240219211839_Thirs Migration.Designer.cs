@@ -4,16 +4,18 @@ using LaunchCodeCapstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LaunchCodeCapstone.Migrations
+namespace LaunchCodeCapstone.Migrations.MovieDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MovieDbContext))]
+    [Migration("20240219211839_Thirs Migration")]
+    partial class ThirsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,98 @@ namespace LaunchCodeCapstone.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("LaunchCodeCapstone.Models.Movie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Overview")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RatingsRatingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RatingsRatingId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("LaunchCodeCapstone.Models.MovieEntry", b =>
+                {
+                    b.Property<int>("MovieEntryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MovieEntryId"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NumRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MovieEntryId");
+
+                    b.ToTable("MovieEntries");
+                });
+
+            modelBuilder.Entity("LaunchCodeCapstone.Models.Rating", b =>
+                {
+                    b.Property<int>("RatingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RatingId"), 1L, 1);
+
+                    b.Property<int>("MovieEntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumStars")
+                        .HasColumnType("int");
+
+                    b.HasKey("RatingId");
+
+                    b.HasIndex("MovieEntryId");
+
+                    b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("LaunchCodeCapstone.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -47,29 +141,6 @@ namespace LaunchCodeCapstone.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "3d46d0ff-d3b5-4beb-a544-d7576643d717",
-                            ConcurrencyStamp = "3d46d0ff-d3b5-4beb-a544-d7576643d717",
-                            Name = "Admin",
-                            NormalizedName = "Admin"
-                        },
-                        new
-                        {
-                            Id = "d980268f-7565-4941-a598-368ab2cea6cb",
-                            ConcurrencyStamp = "d980268f-7565-4941-a598-368ab2cea6cb",
-                            Name = "SuperAdmin",
-                            NormalizedName = "SuperAdmin"
-                        },
-                        new
-                        {
-                            Id = "ecd445ad - 9d58 - 49ef - 908d - a05ad1e64fa2",
-                            ConcurrencyStamp = "ecd445ad - 9d58 - 49ef - 908d - a05ad1e64fa2",
-                            Name = "User",
-                            NormalizedName = "User"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -160,24 +231,6 @@ namespace LaunchCodeCapstone.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "408be4a1-f6ab-47e7-a035-4032256da7fa",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "1e39ba54-91e5-4dc2-9fe7-95a237b2f7ca",
-                            Email = "mendozacolonx@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SUPERADMIN",
-                            NormalizedUserName = "MENDOZACOLONX@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB0MLK306f8JYIP6nWclYOiq+O+7U769wG87NtBPz4LYQ75rj0L2JqB7V2f2RQZxXg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7be9808c-2d97-459f-a5b6-8c05cb2082fa",
-                            TwoFactorEnabled = false,
-                            UserName = "superAdmin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -242,23 +295,6 @@ namespace LaunchCodeCapstone.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "408be4a1-f6ab-47e7-a035-4032256da7fa",
-                            RoleId = "3d46d0ff-d3b5-4beb-a544-d7576643d717"
-                        },
-                        new
-                        {
-                            UserId = "408be4a1-f6ab-47e7-a035-4032256da7fa",
-                            RoleId = "d980268f-7565-4941-a598-368ab2cea6cb"
-                        },
-                        new
-                        {
-                            UserId = "408be4a1-f6ab-47e7-a035-4032256da7fa",
-                            RoleId = "ecd445ad - 9d58 - 49ef - 908d - a05ad1e64fa2"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -280,6 +316,32 @@ namespace LaunchCodeCapstone.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("LaunchCodeCapstone.Models.Movie", b =>
+                {
+                    b.HasOne("LaunchCodeCapstone.Models.Rating", "Ratings")
+                        .WithMany()
+                        .HasForeignKey("RatingsRatingId");
+
+                    b.HasOne("LaunchCodeCapstone.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Ratings");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("LaunchCodeCapstone.Models.Rating", b =>
+                {
+                    b.HasOne("LaunchCodeCapstone.Models.MovieEntry", "MovieEntry")
+                        .WithMany()
+                        .HasForeignKey("MovieEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MovieEntry");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

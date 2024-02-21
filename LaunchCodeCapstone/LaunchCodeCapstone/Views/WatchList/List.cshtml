@@ -1,0 +1,48 @@
+﻿@model List<LaunchCodeCapstone.Models.WatchList.WatchList>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> userManager
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div>
+    @if (Model != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Title</td>
+                    <td></td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @if (item.UserId == userManager.GetUserId(User))
+                    {
+                        <tr>
+                            <td>@item.MovieTitle</td>
+                            <td>
+                                @using (Html.BeginForm("Delete", "WatchList", new { id = @item.Id }, FormMethod.Post))
+                                {
+                                    <button type="submit" data-bs-togle="modal" data-bs-target="#IdModal" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Delete" id="@item.Id">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> No Movies in List! </p>
+    }
+</div>

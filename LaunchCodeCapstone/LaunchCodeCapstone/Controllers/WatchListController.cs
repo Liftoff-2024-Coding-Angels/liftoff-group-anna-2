@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using LaunchCodeCapstone.Repositories;
 using LaunchCodeCapstone.Models.WatchListViewModels;
 using LaunchCodeCapstone.Models.WatchList;
+using LaunchCodeCapstone.Models.BlogStyleReview;
 using LaunchCodeCapstone.Models.ViewModels;
 using LaunchCodeCapstone.Models;
 using DM.MovieApi;
 using DM.MovieApi.ApiResponse;
 using DM.MovieApi.MovieDb.Movies;
+using Movie = DM.MovieApi.MovieDb.Movies.Movie;
 
 namespace LaunchCodeCapstone.Controllers
 {
@@ -18,18 +20,23 @@ namespace LaunchCodeCapstone.Controllers
         private readonly WatchListDbContext watchListDbContext;
         private readonly IWatchListRepository watchListRepository;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly IImageRepository imageRepository;
 
         private MovieDbContext context;
 
         public WatchListController(
             IWatchListRepository watchListRepository,
             UserManager<IdentityUser> userManager,
+            IImageRepository imageRepository,
             MovieDbContext context)
         {
             this.watchListRepository = watchListRepository;
             this.userManager = userManager;
             this.movieDbContext = movieDbContext;
             this.watchListDbContext = watchListDbContext;
+            this.imageRepository = imageRepository;
+
+
         }
 
         public IActionResult Index()
@@ -43,7 +50,7 @@ namespace LaunchCodeCapstone.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> SearchAPI(string title)
         {
             if (string.IsNullOrEmpty(title))
@@ -68,17 +75,19 @@ namespace LaunchCodeCapstone.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddBySearch(AddToWatchListVM addToWatchListVM)
+        //should this be get or post...
+        [HttpGet("{id}")]
+        public async Task<IActionResult> AddBySearch(int movieId)
         {
             var movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
-            ApiSearchResponse<MovieInfo> response = await movieApi.SearchByTitleAsync((addToWatchListVM.MovieTitle).ToString());
 
-            List<MovieInfo> movieList = new List<MovieInfo>();
+            ApiQueryResponse<Movie> response = await movieApi.FindByIdAsync(movieId);
+
+            Movie movie = response.Item;
 
             var model = new WatchList
             {
-                MovieTitle = addToWatchListVM.MovieTitle,
+                MovieTitle = movie.Title,
                 UserId = userManager.GetUserId(User)
             };
             await watchListRepository.AddAsync(model);

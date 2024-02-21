@@ -19,6 +19,8 @@ using LaunchCodeCapstone.Models.WatchListViewModels;
 using CloudinaryDotNet.Actions;
 using LaunchCodeCapstone.Models.WatchListViewModels;
 using LaunchCodeCapstone.Models.WatchList;
+using Movie = DM.MovieApi.MovieDb.Movies.Movie;
+
 namespace LaunchCodeCapstone.Controllers
 {
     public class MovieController : Controller
@@ -102,23 +104,22 @@ namespace LaunchCodeCapstone.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddBySearch(AddToWatchListVM addToWatchListVM)
+        [HttpGet]
+        public async Task<IActionResult> AddBySearch(int movieId)
         {
             var movieApi = MovieDbFactory.Create<IApiMovieRequest>().Value;
-            ApiSearchResponse<MovieInfo> response = await movieApi.SearchByTitleAsync((addToWatchListVM.MovieTitle).ToString());
 
-            List<MovieInfo> movieList = new List<MovieInfo>();
+            ApiQueryResponse<Movie> response = await movieApi.FindByIdAsync(movieId);
+
+            Movie movie = response.Item;
 
             var model = new WatchList
             {
-                MovieTitle = addToWatchListVM.MovieTitle,
+                MovieTitle = movie.Title,
                 UserId = userManager.GetUserId(User)
             };
             await watchListRepository.AddAsync(model);
-            return RedirectToAction("WatchList/List");
-
-            //return View("WatchList/List");
+            return RedirectToAction("List"); 
         }
 
 

@@ -1,5 +1,4 @@
 ﻿@model List<DM.MovieApi.MovieDb.Movies.MovieInfo>
-
 @*@model LaunchCodeCapstone.Models.WatchList.WatchList
 *@
 
@@ -9,20 +8,41 @@
 {
     <table class="table">
         <tr>
-
             <td>@movie.Title</td>
+
             <td>@movie.Overview</td>
+
             <td>@movie.ReleaseDate</td>
-            <td><img src="@movie.PosterPath" id="featuredImageDisplay" style="display: block; width: 300px;" /></td>
+
+            <td><img src="@movie.PosterPath" id="featuredImageUrl" style="display: block; width: 300px;" /></td>
+            
             <td>
-                @using (Html.BeginForm("AddBySearch", "WatchList", new { id = @movie.Title }, FormMethod.Post))
+                <button type="submit" class="btn btn-danger" asp-area="" asp-controller="WatchList" asp-action="AddBySearch" asp-route-id="@movie.Id">Add</button>
+                
+
+               @*@* @using (Html.BeginForm("AddBySearch", "WatchList", new { id = @movie.Id }, FormMethod.Post))
                 {
                     <button type="submit" data-bs-togle="modal" data-bs-target="#IdModal" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Add" id="@movie.Title">
                         <i class="fas fa-trash"></i>
                         Add
                     </button>
-                }
+                }*@
             </td>
         </tr>
     </table>
+}
+
+
+
+
+@section Scripts{
+<script>
+    $(document).ready(function () {
+       $(".btnrowvalue1").click(function () {
+                var tr = $(this).closest('tr');
+                var FirstCol = tr.find('input[name="MovieTitle"]').val();
+                alert('Type1 : ' + FirstCol);
+            });
+    }
+    </script>
 }

@@ -28,8 +28,7 @@
                             <input type="text" class="form-control" id="<movieTitle" asp-for="MovieTitle" />
                         </div>
                         <div class="col-md-10">
-                            <label class="form-label">UserId</label>
-                            <input type="text" class="form-control" id="userId" asp-for="UserId" readonly />
+                            <input type="hidden" class="form-control" id="userId" asp-for="UserId" readonly />
                         </div>
                         <div class="col-md-10">
                             <button type="Submit" class="btn btn-dark">Save</button>
@@ -43,10 +42,10 @@
         <div class="col-md-6 col-md-offset-2">
             <section>
                 <h3>Search Add</h3>
-@*                @using (Html.BeginForm("SearchAPI", "WatchList", FormMethod.Get))
-*@ 
-                @using (Html.BeginForm("Results", "Movie", FormMethod.Get))
-{
+                @using (Html.BeginForm("SearchAPI", "WatchList", FormMethod.Get))
+ 
+@*                @using (Html.BeginForm("Results", "Movie", FormMethod.Get))
+*@{
                     <div class="col-md-10">
                         @Html.TextBox("title",null, new {Class = "form-control", placeholder = "Enter Movie Title"})
                     </div>
@@ -59,23 +58,4 @@
         </div>
 
     </div>
-
-
-    @if (Model != null)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>Title</td>
-                    <td>Overview</td>
-                </tr>
-            </thead>
-
-
-        </table>
-    }
-    else
-    {
-        <p> No Movies in List! </p>
-    }
 </div>
